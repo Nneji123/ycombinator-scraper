@@ -1,10 +1,12 @@
 import json
 import os
 import pickle
+import re
 import time
 from concurrent.futures import ALL_COMPLETED, ThreadPoolExecutor, wait
 from typing import Dict, List, Union
 
+from bs4 import BeautifulSoup
 from loguru import logger
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -19,7 +21,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
+from config.config import Settings
 from src.scraping.models import FounderDetails, JobData, ScrapeResult
+
+settings = Settings()
+
+
+def strip_html_tags(html_content):
+    soup = BeautifulSoup(html_content, "html.parser")
+    return soup.get_text()
 
 
 def initialize_driver(headless: bool = True) -> webdriver.Chrome:
@@ -35,7 +45,8 @@ def initialize_driver(headless: bool = True) -> webdriver.Chrome:
 
 def login(driver: webdriver.Chrome, username: str, password: str) -> bool:
     try:
-        driver.get("https://www.workatastartup.com/")
+        # Open the WorkForStartups website
+        driver.get("https://www.workatastartup.com/companies")
 
         login_button = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located(
@@ -60,7 +71,8 @@ def login(driver: webdriver.Chrome, username: str, password: str) -> bool:
         password_input.send_keys(password)
         login_button.click()
 
-        WebDriverWait(driver, 10).until(EC.url_contains("/jobs"))
+        # Wait for the login to complete
+        driver.get("https://www.workatastartup.com/companies")
 
         return True
 
@@ -103,49 +115,80 @@ def scrape_job_data(driver: webdriver.Chrome, job_link: str) -> JobData:
     try:
         driver.get(job_link)
 
-        job_description = (
-            WebDriverWait(driver, 10)
-            .until(
-                EC.presence_of_element_located(
-                    (By.XPATH, "//div[@class='job-description']")
-                )
+        job_description_elements = driver.find_elements(By.CLASS_NAME, "prose")
+        if len(job_description_elements) >= 2:
+            job_description_html = job_description_elements[1].get_attribute(
+                "outerHTML"
             )
-            .text
+
+            job_title = driver.find_elements(
+                By.CSS_SELECTOR, ".company-name.text-2xl.font-bold"
+            )
+            job_title[0].text
+            job_description_text = strip_html_tags(job_description_html)
+        company_link = driver.find_elements(By.CLASS_NAME, "company-logo")
+
+        company_link[0].click()
+        company_name_elements = driver.find_elements(
+            By.CLASS_NAME, "company-name.hover\:underline"
+        )
+        company_description_elements = driver.find_elements(
+            By.CLASS_NAME, "sm\:text-md.prose.col-span-11.mx-5.max-w-none.text-sm"
+        )
+        company_tags_elements = driver.find_elements(
+            By.CLASS_NAME, "detail-label.text-sm"
         )
 
-        company_link = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//a[@class='company-link']"))
+        company_name = company_name_elements[0].text
+        company_description = company_description_elements[0].text
+        company_tags = [tag.text for tag in company_tags_elements]
+        company_links = [
+            link.get_attribute("href")
+            for link in driver.find_elements(
+                By.XPATH, "//a[@class='text-blue-600.ellipsis']"
+            )
+        ]
+        company_details = {
+            "company_name": company_name,
+            "company_description": company_description,
+            "company_tags": company_tags,
+            "company_links": company_links,
+        }
+        founders_names = driver.find_elements(By.CLASS_NAME, "mb-1.font-medium")
+        print(founders_names[0].text)
+        founders_images = driver.find_elements(
+            By.CLASS_NAME, "ml-2.mr-2.h-20.w-20.rounded-full.sm\:ml-5"
         )
-        company_name = company_link.text
-
-        company_link.click()
-
-        founders_names = driver.find_elements(By.XPATH, "//div[@class='founder-name']")
-        profile_images_urls = driver.find_elements(
-            By.XPATH, "//img[@class='founder-profile-image']"
+        print(founders_images[0].get_attribute("href"))
+        founders_descriptions = driver.find_elements(
+            By.CLASS_NAME, "sm\:text-md.text-sm"
+        ) or driver.find_elements(By.CLASS_NAME, "sm\:text-md.w-full.text-sm")
+        print(founders_descriptions[0].text)
+        founders_linkedins = driver.find_elements(
+            By.CLASS_NAME, "fa.fa-linkedin.ml-4.p-1.text-blue-600"
         )
-        linkedin_urls = driver.find_elements(By.XPATH, "//a[@class='linkedin-profile']")
-
+        print(founders_linkedins[0].get_attribute("href"))
         founders_list = []
 
         for i in range(len(founders_names)):
             founder_name = founders_names[i].text
-            profile_image_url = profile_images_urls[i].get_attribute("src")
-            linkedin_url = linkedin_urls[i].get_attribute("href")
+            founder_image_url = founders_images[i].get_attribute("src")
+            founder_description = founders_descriptions[i].text
+            founder_linkedin_url = founders_linkedins[i].get_attribute("href")
 
-            founder_details = FounderDetails(
-                founder_name=founder_name,
-                profile_image_url=profile_image_url,
-                linkedin_url=linkedin_url,
-            )
-
+            founder_details = {
+                "founder_name": founder_name,
+                "founder_image_url": founder_image_url,
+                "founder_description": founder_description,
+                "founder_linkedin_url": founder_linkedin_url,
+            }
             founders_list.append(founder_details)
-
-        job_data = JobData(
-            company_name=company_name,
-            job_description=job_description,
-            founders_details=founders_list,
-        )
+        job_data = {
+            "job_description": job_description_text,
+            "job_title": job_title,
+            "founders_details": founders_list,
+            "company_details": company_details,
+        }
 
         logger.info(job_data)
 
@@ -191,8 +234,8 @@ def scrape_jobs_in_parallel(username: str, password: str) -> str:
         driver.quit()
 
 
-# if __name__ == "__main__":
-#     # scraped_json_data = scrape_jobs_in_parallel("your_username", "your_password")
-#     # print(scraped_json_data)
-
-#     login("Nneji123", "linda321")
+if __name__ == "__main__":
+    scraped_json_data = scrape_jobs_in_parallel(
+        settings.login_username, settings.login_password
+    )
+    print(scraped_json_data)
