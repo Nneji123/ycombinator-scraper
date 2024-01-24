@@ -1,28 +1,21 @@
-import json
+"""Workatastartup.com WebScraper"""
+
 import os
 import pickle
-import re
-import time
-from concurrent.futures import ALL_COMPLETED, ThreadPoolExecutor, wait
-from typing import Dict, List, Union
+from typing import List
 
 from bs4 import BeautifulSoup
 from loguru import logger
 from selenium import webdriver
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    TimeoutException,
-    WebDriverException,
-)
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
 from config.config import Settings
-from src.scraping.models import FounderDetails, JobData, ScrapeResult
+from src.scraping.models import CompanyData, FounderData, JobData
 
 settings = Settings()
 
@@ -36,7 +29,7 @@ def initialize_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options = Options()
     chrome_options.headless = headless
 
-    chrome_service = ChromeService(ChromeDriverManager().install())
+    chrome_service = ChromeService(settings.CHROME_BINARY)
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     logger.info("WebDriver initialized")
@@ -70,10 +63,7 @@ def login(driver: webdriver.Chrome, username: str, password: str) -> bool:
         username_input.send_keys(username)
         password_input.send_keys(password)
         login_button.click()
-
-        # Wait for the login to complete
-        driver.get("https://www.workatastartup.com/companies")
-
+        logger.success("Successfully logged in!")
         return True
 
     except TimeoutException:
@@ -94,88 +84,121 @@ def save_cookies(driver: webdriver.Chrome) -> None:
         pickle.dump(driver.get_cookies(), cookies_file)
 
 
-def scrape_job_links(driver: webdriver.Chrome, jobs_url: str) -> List[str]:
-    job_links = []
-
+def scrape_job_details(driver: webdriver.Chrome, job_url: str) -> JobData:
     try:
-        driver.get(job_url)
-        job_link_elements = driver.find_elements(
-            By.XPATH, "//a[contains(@href, '/job/')]"
+        job_data = JobData(job_url=job_url)
+        driver.get(job_data.job_url)
+
+        WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
-        job_links = [job_link.get_attribute("href") for job_link in job_link_elements]
 
-    except (TimeoutException, NoSuchElementException, WebDriverException) as e:
-        logger.error(f"Error scraping job links: {e}")
+        # Scraping job title
+        job_title_elements = driver.find_elements(
+            By.CLASS_NAME, "company-name.text-2xl.font-bold"
+        )
+        if job_title_elements:
+            job_data.job_title = job_title_elements[0].text
 
-    return job_links
+        # Scraping job tags
+        job_tags_elements = driver.find_elements(
+            By.CLASS_NAME, "company-details.my-2.flex.flex-wrap.md\:my-0"
+        )
+        if job_tags_elements:
+            job_data.job_tags = [tag.text for tag in job_tags_elements]
 
+        # Scraping salary range (if present)
+        try:
+            salary_range_element = driver.find_element(
+                By.CLASS_NAME, "text-gray-500.my-2"
+            )
+            job_data.job_salary_range = salary_range_element.text
+        except:
+            pass  # Will return None
 
-def scrape_company_data(driver: webdriver.Chrome, company_link: str):
-    pass
-
-def scrape_founders_data(driver: webdriver.Chrome):
-    pass
-
-def scrape_job_data(driver: webdriver.Chrome, job_link: str) -> JobData:
-    job_data = JobData()
-
-    try:
-        driver.get(job_link)
-
+        # Scraping job description
         job_description_elements = driver.find_elements(By.CLASS_NAME, "prose")
         if len(job_description_elements) >= 2:
             job_description_html = job_description_elements[1].get_attribute(
                 "outerHTML"
             )
+            job_data.job_description = strip_html_tags(job_description_html)
 
-            job_title = driver.find_elements(
-                By.CSS_SELECTOR, ".company-name.text-2xl.font-bold"
-            )
-            job_title[0].text
-            job_description_text = strip_html_tags(job_description_html)
-        company_link = driver.find_elements(By.CLASS_NAME, "company-logo")
+    except Exception as e:
+        logger.error(f"Error scraping job data for: {job_data.job_url}. {e}")
 
-        company_link[0].click()
+    logger.success(f"Successfully scraped job data for: {job_data.job_url}")
+    return job_data
+
+
+def scrape_company_data(driver: webdriver.Chrome, company_url: str) -> CompanyData:
+    company_details = CompanyData()
+    try:
+        driver.get(company_url)
+        company_link = driver.find_elements(By.CLASS_NAME, "mt-2.sm\:w-28")
+        company_details.company_image = company_link[0].get_attribute("src")
+
         company_name_elements = driver.find_elements(
             By.CLASS_NAME, "company-name.hover\:underline"
         )
         company_description_elements = driver.find_elements(
             By.CLASS_NAME, "sm\:text-md.prose.col-span-11.mx-5.max-w-none.text-sm"
-        )
+        ) or driver.find_elements(By.CLASS_NAME, "mt-3.text-gray-700")
         company_tags_elements = driver.find_elements(
             By.CLASS_NAME, "detail-label.text-sm"
         )
+        company_job_elements = driver.find_elements(
+            By.CLASS_NAME, "font-medium.text-gray-900.hover\:underline.sm\:text-lg"
+        )
+        company_social_elements = driver.find_elements(
+            By.CLASS_NAME, "text-blue-600.ellipsis"
+        )
 
-        company_name = company_name_elements[0].text
-        company_description = company_description_elements[0].text
-        company_tags = [tag.text for tag in company_tags_elements]
-        company_links = [
-            link.get_attribute("href")
-            for link in driver.find_elements(
-                By.XPATH, "//a[@class='text-blue-600.ellipsis']"
-            )
+        company_details.company_name = company_name_elements[0].text
+        company_details.company_description = company_description_elements[0].text
+        company_details.company_tags = [tag.text for tag in company_tags_elements]
+        company_details.company_job_links = [
+            link.get_attribute("href") for link in company_job_elements
         ]
-        company_details = {
-            "company_name": company_name,
-            "company_description": company_description,
-            "company_tags": company_tags,
-            "company_links": company_links,
+        social_prefixes = {
+            0: "https://",
+            1: "https://twitter.com/",
+            2: "https://facebook.com/",
         }
+
+        for i, link in enumerate(company_social_elements):
+            social_link = link.text.strip()
+            if social_link:  # Check if the link is not an empty string
+                prefix = social_prefixes.get(
+                    i, ""
+                )  # Get the prefix from the dictionary
+                company_details.company_social_links.append(f"{prefix}{social_link}")
+    except Exception as e:
+        logger.error(f"Error Scraping Company Data: {e}")
+
+    logger.success(
+        f"Successfully scraped Data For Company: {company_details.company_name}"
+    )
+    return company_details
+
+
+def scrape_founders_data(
+    driver: webdriver.Chrome, company_url: str
+) -> List[FounderData]:
+    founders_list = []
+
+    try:
+        driver.get(company_url)
         founders_names = driver.find_elements(By.CLASS_NAME, "mb-1.font-medium")
-        print(founders_names[0].text)
         founders_images = driver.find_elements(
             By.CLASS_NAME, "ml-2.mr-2.h-20.w-20.rounded-full.sm\:ml-5"
         )
-        print(founders_images[0].get_attribute("href"))
         founders_descriptions = driver.find_elements(
             By.CLASS_NAME, "sm\:text-md.text-sm"
         ) or driver.find_elements(By.CLASS_NAME, "sm\:text-md.w-full.text-sm")
-        print(founders_descriptions[0].text)
         founders_linkedins = driver.find_elements(
             By.CLASS_NAME, "fa.fa-linkedin.ml-4.p-1.text-blue-600"
         )
-        print(founders_linkedins[0].get_attribute("href"))
-        founders_list = []
 
         for i in range(len(founders_names)):
             founder_name = founders_names[i].text
@@ -183,66 +206,17 @@ def scrape_job_data(driver: webdriver.Chrome, job_link: str) -> JobData:
             founder_description = founders_descriptions[i].text
             founder_linkedin_url = founders_linkedins[i].get_attribute("href")
 
-            founder_details = {
-                "founder_name": founder_name,
-                "founder_image_url": founder_image_url,
-                "founder_description": founder_description,
-                "founder_linkedin_url": founder_linkedin_url,
-            }
-            founders_list.append(founder_details)
-        job_data = {
-            "job_description": job_description_text,
-            "job_title": job_title,
-            "founders_details": founders_list,
-            "company_details": company_details,
-        }
-
-        logger.info(job_data)
-
-    except (TimeoutException, NoSuchElementException, WebDriverException) as e:
-        logger.error(f"Error scraping job data for {job_link}: {e}")
-
-    finally:
-        driver.execute_script("window.history.go(-1)")
-        time.sleep(2)  # Adding a pause between requests to mimic human behavior
-
-    return job_data
-
-
-def scrape_jobs_in_parallel(username: str, password: str) -> str:
-    driver = initialize_driver()
-
-    try:
-        if login(driver, username, password):
-            load_cookies(driver)
-
-            job_links_to_scrape = scrape_job_links(driver)
-
-            with ThreadPoolExecutor(max_workers=5) as executor:
-                futures = [
-                    executor.submit(scrape_job_data, driver, job_link)
-                    for job_link in job_links_to_scrape
-                ]
-                wait(futures, timeout=None, return_when=ALL_COMPLETED)
-
-            scraped_data = [future.result() for future in futures]
-
-            save_cookies(driver)
-
-            result = ScrapeResult(
-                scraped_data=scraped_data, job_links=job_links_to_scrape
+            founder_data = FounderData(
+                founder_name=founder_name,
+                founder_image_url=founder_image_url,
+                founder_description=founder_description,
+                founder_linkedin_url=founder_linkedin_url,
+                founder_emails=None,
             )
+            founders_list.append(founder_data)
 
-            return result.json(indent=2)
+    except Exception as e:
+        logger.error(f"Error scraping founders details: {e}")
 
-    except (NoSuchElementException, WebDriverException) as e:
-        logger.error(f"Error: {e}")
-    finally:
-        driver.quit()
-
-
-if __name__ == "__main__":
-    scraped_json_data = scrape_jobs_in_parallel(
-        settings.login_username, settings.login_password
-    )
-    print(scraped_json_data)
+    logger.success(f"Successfully scraped founder's details from: {company_url}")
+    return founders_list
