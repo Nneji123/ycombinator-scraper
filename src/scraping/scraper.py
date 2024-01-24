@@ -94,10 +94,11 @@ def save_cookies(driver: webdriver.Chrome) -> None:
         pickle.dump(driver.get_cookies(), cookies_file)
 
 
-def scrape_job_links(driver: webdriver.Chrome) -> List[str]:
+def scrape_job_links(driver: webdriver.Chrome, jobs_url: str) -> List[str]:
     job_links = []
 
     try:
+        driver.get(job_url)
         job_link_elements = driver.find_elements(
             By.XPATH, "//a[contains(@href, '/job/')]"
         )
@@ -108,6 +109,12 @@ def scrape_job_links(driver: webdriver.Chrome) -> List[str]:
 
     return job_links
 
+
+def scrape_company_data(driver: webdriver.Chrome, company_link: str):
+    pass
+
+def scrape_founders_data(driver: webdriver.Chrome):
+    pass
 
 def scrape_job_data(driver: webdriver.Chrome, job_link: str) -> JobData:
     job_data = JobData()
