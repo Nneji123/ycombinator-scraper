@@ -1,0 +1,5 @@
+webdriver-manager
+selenium
+requests
+loguru
+pydantic
