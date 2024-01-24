@@ -3,18 +3,29 @@ from typing import List
 from pydantic import BaseModel
 
 
-class FounderDetails(BaseModel):
-    founder_name: str
-    profile_image_url: str
-    linkedin_url: str
+class FounderData(BaseModel):
+    founderName: str
+    founderDescription: str
+    founderImageUrl: str
+    founderLinkedinUrl: str
+    founderEmail: str
 
+class CompanyData(BaseModel):
+    companyName: str
+    companyDescription: str
+    companyTags: List
+    companyImage: str
+    companyLinks: List
+    companyFounders: List[FounderData]
+    jobDatas: List[JobData]
 
 class JobData(BaseModel):
-    company_name: str
-    job_description: str
-    founders_details: List[FounderDetails]
+    jobDescription: str
+    jobUrl: str
+    jobTitle: str
+    jobSalaryRange: str
+    jobTags: List
 
 
-class ScrapeResult(BaseModel):
-    scraped_data: List[JobData]
-    job_links: List[str]
+class ScrapedData(BaseModel):
+    scraped_data: List[CompanyData]
