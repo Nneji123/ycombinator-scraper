@@ -11,27 +11,27 @@ class BaseSchema(BaseModel):
     )
 
 class FounderData(BaseSchema):
-    founderName: str
-    founderDescription: str
-    founderImageUrl: str
-    founderLinkedinUrl: str
-    founderEmails: List[str]
+    founder_name: str
+    founder_description: str
+    founder_image_url: str
+    founder_linkedin_url: str
+    founder_emails: List[str]
 
 class JobData(BaseSchema):
-    jobDescription: str
-    jobUrl: str
-    jobTitle: str
-    jobSalaryRange: str
-    jobTags: List[str]
+    job_description: str
+    job_url: str
+    job_title: str
+    job_salary_range: str
+    job_tags: List[str]
 
 class CompanyData(BaseSchema):
-    companyName: str
-    companyDescription: str
-    companyTags: List[str]
-    companyImage: str
-    companyLinks: List[str]
-    companyFounders: List[FounderData]
-    jobDatas: List[JobData]
+    company_name: str
+    company_description: str
+    company_tags: List[str]
+    company_image: str
+    company_links: List[str]
+    company_founders: List[FounderData]
+    job_datas: List[JobData]
 
 class ScrapedData(BaseSchema):
     scraped_data: List[CompanyData]
