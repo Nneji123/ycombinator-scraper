@@ -1,21 +1,30 @@
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+from pydantic.alias_generators import to_camel
 
-class FounderData(BaseModel):
+
+class BaseSchema(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True,
+        from_attributes=True,
+    )
+
+class FounderData(BaseSchema):
     founderName: str
     founderDescription: str
     founderImageUrl: str
     founderLinkedinUrl: str
     founderEmails: List[str]
 
-class JobData(BaseModel):
+class JobData(BaseSchema):
     jobDescription: str
     jobUrl: str
     jobTitle: str
     jobSalaryRange: str
     jobTags: List[str]
 
-class CompanyData(BaseModel):
+class CompanyData(BaseSchema):
     companyName: str
     companyDescription: str
     companyTags: List[str]
@@ -24,5 +33,5 @@ class CompanyData(BaseModel):
     companyFounders: List[FounderData]
     jobDatas: List[JobData]
 
-class ScrapedData(BaseModel):
+class ScrapedData(BaseSchema):
     scraped_data: List[CompanyData]
