@@ -1,6 +1,6 @@
 import os
 import click
-from src.scraping import (
+from src.ycombinator_scraper import (
     scrape_company_data,
     scrape_founders_data,
     scrape_job_data,

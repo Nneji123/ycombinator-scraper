@@ -1,2 +1,0 @@
-MESSAGE_PROMPT = None
-EMAIL_PROMPT = None

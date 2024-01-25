@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
 from config.config import Settings
-from src.scraping.scraper import login
+from src.ycombinator_scraper.scraper import login
 
 
 def main():

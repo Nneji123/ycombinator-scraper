@@ -17,12 +17,12 @@ from loguru import logger
 from datetime import datetime
 from pathlib import Path
 from config.config import Settings
-from src.scraping.models import CompanyData, FounderData, JobData
+from src.ycombinator_scraper.models import CompanyData, FounderData, JobData
 
 settings = Settings()
 
 # Create a 'logs' directory if it doesn't exist
-log_directory = Path(settings.logs_directory)
+log_directory = settings.logs_directory
 log_directory.mkdir(exist_ok=True)
 timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
 log_file_path = log_directory / f"log_{timestamp_str}.log"
@@ -39,7 +39,7 @@ def initialize_driver(headless: bool = settings.headless_mode) -> webdriver.Chro
     if headless:
         logger.info("Running Scraper in headless mode!")
 
-    chrome_service = ChromeService(settings.CHROME_BINARY)
+    chrome_service = ChromeService(executable_path=settings.CHROMEDRIVER_BINARY)
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     logger.info("WebDriver initialized")
