@@ -1,7 +1,12 @@
 from typing import Dict, List
 from pydantic import BaseModel
 import pandas as pd
+from bs4 import BeautifulSoup
 
+def strip_html_tags(html_content):
+    soup = BeautifulSoup(html_content, "html.parser")
+    return soup.get_text()
+    
 
 def write_json_to_csv(json_data: List[Dict], csv_filename: str) -> None:
     df = pd.DataFrame(json_data)
