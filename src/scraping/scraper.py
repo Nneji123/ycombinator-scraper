@@ -13,12 +13,20 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
+from loguru import logger
+from datetime import datetime
+from pathlib import Path
 from config.config import Settings
 from src.scraping.models import CompanyData, FounderData, JobData
 
 settings = Settings()
 
+# Create a 'logs' directory if it doesn't exist
+log_directory = Path("logs")
+log_directory.mkdir(exist_ok=True)
+timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+log_file_path = log_directory / f"log_{timestamp_str}.log"
+logger.add(log_file_path, rotation="1 day", level="INFO")
 
 def strip_html_tags(html_content):
     soup = BeautifulSoup(html_content, "html.parser")
