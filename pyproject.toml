@@ -46,7 +46,7 @@ dependencies = [
     "typing-extensions>=4.8.0",
 ]
 dynamic = ["version"]
-version = "0.0.0"
+version = "0.1.0"
 
 [project.urls]
 Homepage = "https://github.com/Nneji123/ycombinator-scraper"
