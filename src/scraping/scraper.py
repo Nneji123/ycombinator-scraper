@@ -22,7 +22,7 @@ from src.scraping.models import CompanyData, FounderData, JobData
 settings = Settings()
 
 # Create a 'logs' directory if it doesn't exist
-log_directory = Path("logs")
+log_directory = Path(settings.logs_directory)
 log_directory.mkdir(exist_ok=True)
 timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
 log_file_path = log_directory / f"log_{timestamp_str}.log"
@@ -142,7 +142,7 @@ def scrape_job_data(driver: webdriver.Chrome, job_url: str) -> JobData:
 
 
 def scrape_company_data(driver: webdriver.Chrome, company_url: str) -> CompanyData:
-    company_details = CompanyData()
+    company_details = CompanyData(company_url=company_url)
     try:
         driver.get(company_url)
         company_link = driver.find_elements(By.CLASS_NAME, "mt-2.sm\:w-28")
