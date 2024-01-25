@@ -4,6 +4,7 @@ pydantic==2.5.3
 pydantic-settings==2.1.0
 pydantic_core==2.14.6
 pytest
+pathlib
 black==23.12.1 
 beautifulsoup4==4.12.3 
 loguru==0.7.2 
