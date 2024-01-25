@@ -132,6 +132,16 @@ def scrape_all_command(username, password, output_format, output_path):
         logger.success("Scraping completed successfully!")
 
     driver.quit()
+@cli.command()
+def interactive():
+    click.echo("Entering interactive mode. Type 'exit' to leave.")
+    while True:
+        command = click.prompt("Enter a command", type=str)
+        if command.lower() == 'exit':
+            click.echo("Exiting interactive mode.")
+            break
+        else:
+            click.echo(f"Invalid command: {command}")
 
 if __name__ == '__main__':
     cli()
