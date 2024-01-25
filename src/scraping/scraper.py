@@ -33,7 +33,7 @@ def strip_html_tags(html_content):
     return soup.get_text()
 
 
-def initialize_driver(headless: bool = True) -> webdriver.Chrome:
+def initialize_driver(headless: bool = settings.headless_mode) -> webdriver.Chrome:
     chrome_options = Options()
     chrome_options.headless = headless
     if headless:
