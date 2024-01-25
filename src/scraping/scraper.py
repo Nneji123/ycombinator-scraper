@@ -28,6 +28,8 @@ def strip_html_tags(html_content):
 def initialize_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options = Options()
     chrome_options.headless = headless
+    if headless:
+        logger.info("Running Scraper in headless mode!")
 
     chrome_service = ChromeService(settings.CHROME_BINARY)
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
