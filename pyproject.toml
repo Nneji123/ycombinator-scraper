@@ -9,7 +9,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [
-    { name = "Sebastián Ramírez", email = "tiangolo@gmail.com" },
+    { name = "Ifeanyi Nneji", email = "ifeanyinneji777@gmail.com" },
 ]
 classifiers = [
     "Intended Audience :: Information Technology",
@@ -48,9 +48,9 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/tiangolo/fastapi"
+Homepage = "https://github.com/Nneji123/ycombinator-scraper"
 Documentation = "https://fastapi.tiangolo.com/"
-Repository = "https://github.com/tiangolo/fastapi"
+Repository = "https://github.com/Nneji123/ycombinator-scraper"
 
 [project.optional-dependencies]
 all = [
@@ -68,7 +68,7 @@ all = [
 ]
 
 [tool.hatch.version]
-path = "fastapi/__init__.py"
+path = "ycombinator-scraper/__init__.py"
 
 [tool.black]
 line-length = 88
