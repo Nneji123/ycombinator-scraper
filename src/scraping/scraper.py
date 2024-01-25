@@ -84,7 +84,7 @@ def save_cookies(driver: webdriver.Chrome) -> None:
         pickle.dump(driver.get_cookies(), cookies_file)
 
 
-def scrape_job_details(driver: webdriver.Chrome, job_url: str) -> JobData:
+def scrape_job_data(driver: webdriver.Chrome, job_url: str) -> JobData:
     try:
         job_data = JobData(job_url=job_url)
         driver.get(job_data.job_url)
