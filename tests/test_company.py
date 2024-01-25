@@ -2,27 +2,24 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from ycombinator_scraper.config import Settings
-from ycombinator_scraper.scraper import scrape_company_data, CompanyData
+from ycombinator_scraper.scraper import Scraper
 
 settings = Settings()
 
 
 @pytest.fixture
-def driver():
+def scraper():
     # Set up a WebDriver instance for testing
-    chrome_service = ChromeService(executable_path=settings.CHROMEDRIVER_BINARY)
-    driver = webdriver.Chrome(service=chrome_service)
-    yield driver
-    # Close the WebDriver instance after testing
-    driver.quit()
+    scraper = Scraper()
+    yield scraper
 
 
-def test_scrape_company_data(driver):
+def test_scrape_company_data(scraper):
     # Mocking company URL for testing
     company_url = "https://www.workatastartup.com/companies/vocode"
 
     # Call the scrape_company_data function with mocked company URL
-    company_data = scrape_company_data(driver, company_url)
+    company_data = scraper.scrape_company_data(company_url)
 
     # Assert that the company_data is an instance of CompanyData
     assert isinstance(company_data, CompanyData)
