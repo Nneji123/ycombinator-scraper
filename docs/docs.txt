@@ -1,1 +1,0 @@
-Create essential docs using mkdocs-material
