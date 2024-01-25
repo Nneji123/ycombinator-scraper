@@ -31,6 +31,11 @@ def get_output_filename(output_path, file_format, file_name):
     return os.path.join(output_directory, f"{file_name}.{file_format}")
 
 @cli.command()
+def version():
+    click.echo("Your CLI Tool v1.0.0")
+
+
+@cli.command()
 @click.option('--username', prompt=True, help='Your Workatastartup username')
 @click.option('--password', prompt=True, hide_input=True, help='Your Workatastartup password')
 def login_command(username, password):
