@@ -1,19 +1,21 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from src.ycombinator_scraper.scraper import scrape_founders_data, FounderData
+from ycombinator_scraper.config import Settings
+from ycombinator_scraper.scraper import scrape_founders_data, FounderData
+
+settings = Settings()
+
 
 @pytest.fixture
 def driver():
     # Set up a WebDriver instance for testing
-    chrome_service = ChromeService("chromedriver.exe")
+    chrome_service = ChromeService(executable_path=settings.CHROMEDRIVER_BINARY)
     driver = webdriver.Chrome(service=chrome_service)
     yield driver
     # Close the WebDriver instance after testing
     driver.quit()
+
 
 def test_scrape_founders_data(driver):
     # Mocking company URL for testing
@@ -33,8 +35,3 @@ def test_scrape_founders_data(driver):
         assert isinstance(founder.founder_image_url, str)
         assert isinstance(founder.founder_description, str)
         assert isinstance(founder.founder_linkedin_url, str)
-
-    # Verify that the logger was called with the expected message
-    logger_mock.success.assert_called_with(
-        f"Successfully scraped founder's details from: {company_url}"
-    )

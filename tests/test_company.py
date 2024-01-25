@@ -1,19 +1,21 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from src.ycombinator_scraper.scraper import scrape_company_data, CompanyData
+from ycombinator_scraper.config import Settings
+from ycombinator_scraper.scraper import scrape_company_data, CompanyData
+
+settings = Settings()
+
 
 @pytest.fixture
 def driver():
     # Set up a WebDriver instance for testing
-    chrome_service = ChromeService("chromedriver.exe")
+    chrome_service = ChromeService(executable_path=settings.CHROMEDRIVER_BINARY)
     driver = webdriver.Chrome(service=chrome_service)
     yield driver
     # Close the WebDriver instance after testing
     driver.quit()
+
 
 def test_scrape_company_data(driver):
     # Mocking company URL for testing

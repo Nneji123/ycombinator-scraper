@@ -1,20 +1,22 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from your_module import login  # Replace 'your_module' with the actual module name
+from ycombinator_scraper.config import Settings
+from ycombinator_scraper.scraper import login
+
+settings = Settings()
+
 
 @pytest.fixture
 def driver():
     # Set up a WebDriver instance for testing
-    chrome_service = ChromeService("chromedriver.exe")
+    chrome_service = ChromeService(executable_path=settings.CHROMEDRIVER_BINARY)
     driver = webdriver.Chrome(service=chrome_service)
     yield driver
     # Close the WebDriver instance after testing
     driver.quit()
+
 
 def test_successful_login(driver):
     # Mocking user credentials for testing
@@ -26,6 +28,7 @@ def test_successful_login(driver):
 
     # Assert that the login was successful
     assert result is True
+
 
 def test_failed_login_timeout(driver):
     # Mocking user credentials for testing

@@ -1,6 +1,6 @@
 import os
 import click
-from src.ycombinator_scraper import (
+from ycombinator_scraper import (
     scrape_company_data,
     scrape_founders_data,
     scrape_job_data,
@@ -9,7 +9,7 @@ from src.ycombinator_scraper import (
     save_cookies,
     load_cookies,
 )
-from config.config import Settings
+from ycombinator_scraper.config import Settings
 import pandas as pd
 from loguru import logger
 from concurrent.futures import ThreadPoolExecutor
@@ -35,7 +35,7 @@ def get_output_filename(output_path, file_format, file_name):
 
 @cli.command()
 def version():
-    click.echo("Your CLI Tool v1.0.0")
+    click.echo("YCombinator-Scraper CLI Tool v0.1.0")
 
 
 @cli.command()

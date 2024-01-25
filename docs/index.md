@@ -1,6 +1,47 @@
-# YCJobAutomator
+<p align="center">
+  <img
+    width="250"
+    src="./.github/logo.jpeg"
+    alt="YCombinator-Scraper"
+  />
+</p>
 
-This Python script provides a web scraping tool for extracting data from [Workatastartup](https://www.workatastartup.com/) website. The script uses Selenium and BeautifulSoup to navigate through the pages and extract information.
+<p align="center">
+  <a href="https://github.com/cocogitto/cocogitto/actions"
+    ><img
+      src="https://github.com/cocogitto/cocogitto/workflows/CI/badge.svg"
+      alt="GitHub Actions workflow status"
+  /></a>
+  <a href="https://codecov.io/gh/cocogitto/cocogitto"
+    ><img
+      src="https://codecov.io/gh/cocogitto/cocogitto/branch/main/graph/badge.svg"
+      alt="Code coverage status"
+  /></a>
+  <br />
+  <a href="https://conventionalcommits.org"
+    ><img
+      src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg"
+      alt="Conventional commits"
+  /></a>
+  <a href="https://github.com/cocogitto/cocogitto/blob/main/LICENSE"
+    ><img
+      src="https://img.shields.io/github/license/cocogitto/cocogitto"
+      alt="Repository license"
+  /></a>
+
+</p>
+
+<p align="center">
+  <a href="https://docs.cocogitto.io">Docs</a>
+  ·
+  <a href="#installation">Installation</a>
+  ·
+  <a href="https://docs.cocogitto.io/config">Configuration</a>
+</p>
+
+<h1></h1>
+
+YCombinator-Scraper provides a web scraping tool for extracting data from [Workatastartup](https://www.workatastartup.com/) website. The script uses Selenium and BeautifulSoup to navigate through the pages and extract information.
 
 ## Prerequisites
 
