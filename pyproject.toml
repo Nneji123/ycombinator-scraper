@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling >= 1.13.0"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
@@ -69,7 +69,7 @@ all = [
 ]
 
 [tool.hatch.version]
-path = "ycombinator-scraper/__init__.py"
+path = "ycombinator_scraper/__init__.py"
 
 [tool.black]
 line-length = 88
