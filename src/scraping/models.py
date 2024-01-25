@@ -30,6 +30,7 @@ class JobData(BaseSchema):
 
 class CompanyData(BaseSchema):
     company_name: str = ""
+    company_url: str = ""
     company_description: str = ""
     company_tags: List[str] = []
     company_image: str = ""
