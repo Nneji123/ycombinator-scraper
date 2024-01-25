@@ -40,9 +40,15 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
-    "starlette>=0.35.0,<0.36.0",
-    "pydantic>=1.7.4,!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0",
-    "typing-extensions>=4.8.0",
+    "click",
+    "beautifulsoup4 >= 4.12.3",
+    "loguru >= 0.7.2",
+    "numpy >= 1.26.3",
+    "pandas >= 2.2.0",
+    "pathlib",
+    "pydantic >= 2.5.3",
+    "pydantic-settings >= 2.1.0",
+    "pydantic-core >= 2.14.6",
 ]
 dynamic = ["version"]
 
