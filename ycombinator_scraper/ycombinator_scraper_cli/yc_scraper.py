@@ -1,20 +1,13 @@
 import os
 import click
-from ycombinator_scraper import (
-    scrape_company_data,
-    scrape_founders_data,
-    scrape_job_data,
-    initialize_driver,
-    login,
-    save_cookies,
-    load_cookies,
-)
+from ycombinator_scraper import Scraper
 from ycombinator_scraper.config import Settings
 import pandas as pd
 from loguru import logger
 from concurrent.futures import ThreadPoolExecutor
 
 settings = Settings()
+scraper = Scraper()
 
 # Configure logging with loguru
 logger.add("logs/{time:YYYY-MM-DD}.log", rotation="1 day", level="INFO")
@@ -44,9 +37,8 @@ def version():
     "--password", prompt=True, hide_input=True, help="Your Workatastartup password"
 )
 def login_command(username, password):
-    driver = initialize_driver()
-    if login(driver, username, password):
-        save_cookies(driver)
+    if scraper.login(username, password):
+        scraper.save_cookies()
         logger.success("Successfully logged in!")
     driver.quit()
 
@@ -63,9 +55,8 @@ def login_command(username, password):
     "--output-path", type=click.Path(), default=".", help="Output path for saved files"
 )
 def scrape_company_command(company_url, output_format, output_path):
-    driver = initialize_driver()
-    load_cookies(driver)
-    company_data = scrape_company_data(driver, company_url)
+    scraper.load_cookies(driver)
+    company_data = scraper.scrape_company_data(company_url)
 
     output_filename = get_output_filename(
         output_path, output_format, "scraped_company_data"
@@ -94,9 +85,8 @@ def scrape_company_command(company_url, output_format, output_path):
     "--output-path", type=click.Path(), default=".", help="Output path for saved files"
 )
 def scrape_job_command(job_url, output_format, output_path):
-    driver = initialize_driver()
-    load_cookies(driver)
-    job_data = scrape_job_data(driver, job_url)
+    scraper.load_cookies()
+    job_data = scraper scrape_job_data(job_url)
 
     output_filename = get_output_filename(
         output_path, output_format, "scraped_job_data"
@@ -127,9 +117,8 @@ def scrape_job_command(job_url, output_format, output_path):
     "--output-path", type=click.Path(), default=".", help="Output path for saved files"
 )
 def scrape_founders_command(company_url, output_format, output_path):
-    driver = initialize_driver()
-    load_cookies(driver)
-    founders_data = scrape_founders_data(driver, company_url)
+    scraper.load_cookies()
+    founders_data = scraper.scrape_founders_data(company_url)
 
     for i, founder in enumerate(founders_data):
         output_filename = get_output_filename(
@@ -163,8 +152,7 @@ def scrape_founders_command(company_url, output_format, output_path):
     "--output-path", type=click.Path(), default=".", help="Output path for saved files"
 )
 def scrape_all_command(username, password, output_format, output_path):
-    driver = initialize_driver()
-    if login(driver, username, password):
+    if scraper.login(username, password):
         save_cookies(driver)
 
         company_urls = ["company_url_1", "company_url_2"]  # Add actual URLs
@@ -174,8 +162,7 @@ def scrape_all_command(username, password, output_format, output_path):
         with ThreadPoolExecutor() as executor:
             results = list(
                 executor.map(
-                    scrape_company_data,
-                    driver,
+                    scraper.scrape_company_data,
                     company_urls,
                     output_format,
                     output_path,
@@ -183,13 +170,12 @@ def scrape_all_command(username, password, output_format, output_path):
             )
             results += list(
                 executor.map(
-                    scrape_job_data, driver, job_urls, output_format, output_path
+                    scraper.scrape_job_data, job_urls, output_format, output_path
                 )
             )
             results += list(
                 executor.map(
-                    scrape_founders_data,
-                    driver,
+                    scraper.scrape_founders_data,
                     founders_urls,
                     output_format,
                     output_path,
