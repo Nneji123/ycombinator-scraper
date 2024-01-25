@@ -14,8 +14,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from datetime import datetime
-from config.config import Settings
-from src.ycombinator_scraper.models import CompanyData, FounderData, JobData
+from ycombinator_scraper.config import Settings
+from ycombinator_scraper.models import CompanyData, FounderData, JobData
 
 settings = Settings()
 
