@@ -8,8 +8,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from src.scraping.models import CompanyData, JobData
-from src.scraping.scraper import strip_html_tags
+from src.ycombinator_scraper.models import CompanyData, JobData
+from src.ycombinator_scraper.scraper import strip_html_tags
 
 
 def login(driver, username, password):

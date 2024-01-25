@@ -1,0 +1,86 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ycombinator-scraper"
+description = "A Python command-line tool and package for scraping company, job, and founder data from Workatastartup.com"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [
+    { name = "Ifeanyi Nneji", email = "ifeanyinneji777@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Natural Language :: English",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+    "Framework :: Selenium",
+    "Framework :: Click",
+    "Framework :: Pydantic",
+    "Framework :: Pandas",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+    "Topic :: Utilities :: Command Line Tools",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "click",
+    "beautifulsoup4 >= 4.12.3",
+    "loguru >= 0.7.2",
+    "numpy >= 1.26.3",
+    "pandas >= 2.2.0",
+    "pathlib",
+    "pydantic >= 2.5.3",
+    "pydantic-settings >= 2.1.0",
+    "pydantic-core >= 2.14.6",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Nneji123/ycombinator-scraper"
+Documentation = "https://Nneji23.github.io/ycombinator-scraper"
+Repository = "https://github.com/Nneji123/ycombinator-scraper"
+
+[tool.hatch.version]
+path = "ycombinator_scraper/__init__.py"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = 3.8
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver"
+version_files = [
+    "pyproject.toml:[tool.hatch.version]",
+    "ycombinator_scraper/__init__.py"
+]
+version_provider = "pep621"
+update_changelog_on_bump = true
+major_version_zero = true
