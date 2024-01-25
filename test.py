@@ -52,15 +52,18 @@ def scrape_company_links() -> List[dict]:
         # driver.get("https://www.workatastartup.com/companies/")
         time.sleep(20)
         # Wait for the page to load
-        WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "text-2xl.font-medium"))
-        )
 
         # Find all elements with the specified class name
-        company_elements = driver.find_elements(By.CLASS_NAME, "text-2xl.font-medium")
+        company_name_elements = driver.find_elements(
+            By.CLASS_NAME, "company-name.hover\:underline"
+        )
+        company_url_elements = driver.find_elements(
+            By.CLASS_NAME, "text-blue-600.ellipsis"
+        )
 
+        print(company_name_elements)
         # Iterate through each company element and gather details
-        for company_element in company_elements:
+        for company_element in company_name_elements:
             # Extract company name and URL
             company_name = company_element.text
             print(company_name)
