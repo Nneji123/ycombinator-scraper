@@ -4,7 +4,6 @@ import os
 import pickle
 from typing import List
 
-from bs4 import BeautifulSoup
 from loguru import logger
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -16,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from datetime import datetime
 from ycombinator_scraper.config import Settings
 from ycombinator_scraper.models import CompanyData, FounderData, JobData
-
+from ycombinator_scraper.utils import strip_html_tags
 settings = Settings()
 
 # Create a 'logs' directory if it doesn't exist
@@ -27,9 +26,6 @@ log_file_path = log_directory / f"log_{timestamp_str}.log"
 logger.add(log_file_path, rotation="1 day", level="INFO")
 
 
-def strip_html_tags(html_content):
-    soup = BeautifulSoup(html_content, "html.parser")
-    return soup.get_text()
 
 
 class Scraper:
