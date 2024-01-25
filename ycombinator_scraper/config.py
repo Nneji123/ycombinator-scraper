@@ -2,6 +2,7 @@ import platform
 from pydantic import BaseSettings
 from pathlib import Path
 
+
 class Settings(BaseSettings):
     login_username: str
     login_password: str
@@ -12,9 +13,7 @@ class Settings(BaseSettings):
 
     class Config:
         @classmethod
-        def customise_sources(
-            cls, init_settings, env_settings, file_secret_settings
-        ):
+        def customise_sources(cls, init_settings, env_settings, file_secret_settings):
             # Override the default CHROMEDRIVER_BINARY based on the platform
             if platform.system() == "Windows":
                 env_settings["CHROMEDRIVER_BINARY"] = "C:/chromedriver/chromedriver.exe"

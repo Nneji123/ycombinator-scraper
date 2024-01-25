@@ -13,9 +13,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from loguru import logger
 from datetime import datetime
-from pathlib import Path
 from config.config import Settings
 from src.ycombinator_scraper.models import CompanyData, FounderData, JobData
 
@@ -27,6 +25,7 @@ log_directory.mkdir(exist_ok=True)
 timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
 log_file_path = log_directory / f"log_{timestamp_str}.log"
 logger.add(log_file_path, rotation="1 day", level="INFO")
+
 
 def strip_html_tags(html_content):
     soup = BeautifulSoup(html_content, "html.parser")
@@ -123,7 +122,7 @@ def scrape_job_data(driver: webdriver.Chrome, job_url: str) -> JobData:
                 By.CLASS_NAME, "text-gray-500.my-2"
             )
             job_data.job_salary_range = salary_range_element.text
-        except:
+        except Exception:
             pass  # Will return None
 
         # Scraping job description

@@ -1,1 +1,0 @@
-"""Ycombinator-Scraper CLI Tool"""

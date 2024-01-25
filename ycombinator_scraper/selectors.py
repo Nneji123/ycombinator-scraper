@@ -17,5 +17,3 @@ FOUNDER_LINKEDIN_CLASS = "fa.fa-linkedin.ml-4.p-1.text-blue-600"
 # CLASS NAMES FOR JOB_DATA
 
 # CLASS NAMES FOR JOB_URLS
-
-
