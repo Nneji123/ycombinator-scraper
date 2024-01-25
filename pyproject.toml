@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ycombinator-scraper"
-description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
+description = "A Python command-line tool and package for scraping company, job, and founder data from Workatastartup.com"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 license = "MIT"
 authors = [
     { name = "Ifeanyi Nneji", email = "ifeanyinneji777@gmail.com" },
