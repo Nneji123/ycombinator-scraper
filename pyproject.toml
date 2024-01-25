@@ -89,8 +89,8 @@ name = "cz_conventional_commits"
 tag_format = "$version"
 version_scheme = "semver"
 version_files = [
-    "pyproject.toml:[tool.commitizen]\nversion",
-    "ycombinator-scraper/__init__.py"
+    "pyproject.toml:[tool.hatch]\nversion",
+    "ycombinator_scraper/__init__.py"
 ]
 version_provider = "pep621"
 update_changelog_on_bump = true
