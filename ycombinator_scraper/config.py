@@ -1,4 +1,4 @@
-from pydantic import BaseSettings, Field
+from pydantic_settings import BaseSettings, Field, SettingsConfigDict
 from pathlib import Path
 
 
@@ -7,13 +7,12 @@ class Settings(BaseSettings):
     login_password: str
     logs_directory: Path = Path("./logs")
     headless_mode: bool = True
-    CHROMEDRIVER_BINARY: str = "chromedriver.exe"
+    chromedriver_binary: str
 
-    class Config:
-        env_file = ".env"
-
-    # Override the default CHROMEDRIVER_BINARY based on the platform
-    CHROMEDRIVER_BINARY: str = Field(
+    model_config = SettingsConfigDict(env_file=".env")
+    
+    #Override the default CHROMEDRIVER_BINARY based on the platform
+    chromedriver_binary: str = Field(
         default="chromedriver.exe",
         env="CHROMEDRIVER_BINARY",
         if_platform={
