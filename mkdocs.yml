@@ -1,6 +1,6 @@
-site_name: TYCombinator-Scraper
-site_description: A Python command-line tool and package for scraping company, job, and founder data from Workatastartup.com using Selenium and Beautiful Soup
-# site_url: https://typer.tiangolo.com/
+site_name: YCombinator-Scraper
+site_description: A Python command-line tool and package for scraping company, job, and founder data from Workatastartup.com.
+site_url: https://nneji123.github.io/ycombinator-scraper
 
 theme:
   name: material
@@ -10,8 +10,8 @@ theme:
     accent: teal
   icon:
     repo: fontawesome/brands/github-alt
-  logo: img/logo.jpeg
-  favicon: img/favicon.jpeg
+  logo: img/logo.svg
+  favicon: img/logo.png
 
 repo_name: Nneji123/ycombinator-scraper
 repo_url: https://github.com/Nneji123/ycombinator-scraper
@@ -114,17 +114,17 @@ extra:
   #   property: G-T78C5GNRXK
   social:
     - icon: fontawesome/brands/github-alt
-      link: https://github.com/tiangolo/typer
+      link: https://github.com/Nneji123/ycombinator-scraper
     - icon: fontawesome/brands/twitter
-      link: https://twitter.com/tiangolo
+      link: https://twitter.com/@neji_14
     - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/in/tiangolo
-    - icon: fontawesome/brands/dev
-      link: https://dev.to/tiangolo
+      link: https://www.linkedin.com/in/ifeanyi-nneji
+    - icon: fontawesome/brands/hashnode
+      link: https://hashnode.com/Nneji123
     - icon: fontawesome/brands/medium
-      link: https://medium.com/@tiangolo
+      link: https://medium.com/@ifeanyi777
     - icon: fontawesome/solid/globe
-      link: https://tiangolo.com
+      link: https://flowcv.me/ifeanyi
 
 # extra_css:
 #   - css/termynal.css
