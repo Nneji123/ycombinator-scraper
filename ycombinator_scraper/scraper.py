@@ -158,6 +158,7 @@ class Scraper:
             logger.error(f"Error scraping job data for: {job_data.job_url}. {e}")
 
         logger.success(f"Successfully scraped job data for: {job_data.job_url}")
+
         return job_data
 
     def scrape_company_data(self, company_url: str) -> CompanyData:
@@ -250,3 +251,6 @@ class Scraper:
 
         logger.success(f"Successfully scraped founder's details from: {company_url}")
         return founders_list
+
+    def shutdown_driver(self):
+        self.driver.quit()

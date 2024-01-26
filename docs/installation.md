@@ -22,6 +22,8 @@ CHROMEDRIVER_BINARY=/path/to/chromedriver
 
 Replace placeholders (`your_workatastartup_username`, `your_workatastartup_password`, `/path/to/logs`, `/path/to/chromedriver`) with your actual Workatastartup login credentials, desired logs directory, and the path to the ChromeDriver binary.
 
+You can also export the environment variables. E.g `export CHROMEDRIVER_BINARY=/path/to/chromedriver"
+
 **Note:** It's recommended to keep sensitive information like passwords in a secure manner. Do not share your `.env` file publicly.
 
 ### 3. Run the Scraper
@@ -37,13 +39,13 @@ ycombinator-scraper
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/YCombinator-Scraper.git
+git clone https://github.com/Nneji123/ycombinator-scraper.git
 ```
 
 ### 2. Navigate to the Project Directory
 
 ```bash
-cd YCombinator-Scraper
+cd ycombinator-scraper
 ```
 
 ### 3. Install Dependencies
@@ -58,10 +60,10 @@ Create a `.env` file in your project directory and set the same configuration va
 
 ### 5. Run the Scraper
 
-You can run the `YCombinator-Scraper` using the following command:
+You can run the `ycombinator-scraper` using the following command:
 
 ```bash
-python main.py
+python -m ycombinator-scraper
 ```
 
 ## Using Docker

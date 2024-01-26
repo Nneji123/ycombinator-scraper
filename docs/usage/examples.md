@@ -29,7 +29,7 @@ This command will scrape founder data for the specified company and save it in t
 ## Example 4: Scrape Company Data using Python Package
 
 ```python
-from ycombinator_scraper import Scraper
+from ycombinator_scraper.scraper import Scraper
 
 scraper = Scraper()
 company_data = scraper.scrape_company_data("https://www.workatastartup.com/company/example-inc")

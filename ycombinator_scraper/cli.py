@@ -34,7 +34,7 @@ def version():
 @click.option(
     "--password", prompt=True, hide_input=True, help="Your Workatastartup password"
 )
-def login_command(username, password):
+def login(username, password):
     if scraper.login(username, password):
         scraper.save_cookies()
 
@@ -50,7 +50,7 @@ def login_command(username, password):
 @click.option(
     "--output-path", type=click.Path(), default=".", help="Output path for saved files"
 )
-def scrape_company_command(company_url, output_format, output_path):
+def scrape_company(company_url, output_format, output_path):
     scraper.load_cookies()
     company_data = scraper.scrape_company_data(company_url)
 
@@ -79,7 +79,7 @@ def scrape_company_command(company_url, output_format, output_path):
 @click.option(
     "--output-path", type=click.Path(), default=".", help="Output path for saved files"
 )
-def scrape_job_command(job_url, output_format, output_path):
+def scrape_job(job_url, output_format, output_path):
     scraper.load_cookies()
     job_data = scraper.scrape_job_data(job_url)
 
@@ -110,7 +110,7 @@ def scrape_job_command(job_url, output_format, output_path):
 @click.option(
     "--output-path", type=click.Path(), default=".", help="Output path for saved files"
 )
-def scrape_founders_command(company_url, output_format, output_path):
+def scrape_founders(company_url, output_format, output_path):
     scraper.load_cookies()
     founders_data = scraper.scrape_founders_data(company_url)
 
@@ -135,5 +135,4 @@ def scrape_founders_command(company_url, output_format, output_path):
 
 
 if __name__ == "__main__":
-    print("YCombinator-Scraper Version 0.4.0")
     cli()

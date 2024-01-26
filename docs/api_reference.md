@@ -21,6 +21,11 @@
 - **Description:**
   Initializes the ChromeDriver.
 
+### `shutdown_driver(self) -> None`
+
+- **Description:**
+  Ends the chromedriver instance.
+
 ### `login(self, username: str, password: str) -> bool`
 
 - **Parameters:**
