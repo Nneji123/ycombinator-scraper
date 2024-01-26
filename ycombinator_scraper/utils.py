@@ -1,7 +1,17 @@
+import os
 from typing import Dict, List
 from pydantic import BaseModel
+from pathlib import Path
 import pandas as pd
 from bs4 import BeautifulSoup
+
+OUTPUT_PATH = Path("./output")
+
+
+def get_output_filename(output_path, file_format, file_name):
+    output_directory = os.path.join(OUTPUT_PATH, output_path)
+    os.makedirs(output_directory, exist_ok=True)
+    return os.path.join(output_directory, f"{file_name}.{file_format}")
 
 
 def strip_html_tags(html_content: str) -> str:

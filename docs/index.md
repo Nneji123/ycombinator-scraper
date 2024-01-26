@@ -1,161 +1,59 @@
-<p align="center">
-  <img
-    width="250"
-    src="./.github/logo.jpeg"
-    alt="YCombinator-Scraper"
-  />
-</p>
+# YCombinator-Scraper
 
-<p align="center">
-  <a href="https://github.com/cocogitto/cocogitto/actions"
-    ><img
-      src="https://github.com/cocogitto/cocogitto/workflows/CI/badge.svg"
-      alt="GitHub Actions workflow status"
-  /></a>
-  <a href="https://codecov.io/gh/cocogitto/cocogitto"
-    ><img
-      src="https://codecov.io/gh/cocogitto/cocogitto/branch/main/graph/badge.svg"
-      alt="Code coverage status"
-  /></a>
-  <br />
-  <a href="https://conventionalcommits.org"
-    ><img
-      src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg"
-      alt="Conventional commits"
-  /></a>
-  <a href="https://github.com/cocogitto/cocogitto/blob/main/LICENSE"
-    ><img
-      src="https://img.shields.io/github/license/cocogitto/cocogitto"
-      alt="Repository license"
-  /></a>
+Welcome to the documentation for YCombinator-Scraper, a tool and package for web scraping Y Combinator's Work at a Startup website.
 
-</p>
+## Table of Contents
 
-<p align="center">
-  <a href="https://docs.cocogitto.io">Docs</a>
-  ·
-  <a href="#installation">Installation</a>
-  ·
-  <a href="https://docs.cocogitto.io/config">Configuration</a>
-</p>
+- [Installation Guide](installation.md)
+- [Configuration](configuration.md)
+- [Usage](#)
+  - [CLI](usage/cli.md)
+  - [Examples](usage/examples.md)
+  - [Package](usage/package.md)
+- [API Reference](api_reference.md)
+- [CLI Reference](cli_reference.md)
+- [Changelog](changelog.md)
+- [License](license.md)
 
-<h1></h1>
+## Overview
 
-YCombinator-Scraper provides a web scraping tool for extracting data from [Workatastartup](https://www.workatastartup.com/) website. The script uses Selenium and BeautifulSoup to navigate through the pages and extract information.
+YCombinator-Scraper is designed to help you scrape valuable data from Y Combinator's Work at a Startup website, providing both a command-line interface (CLI) and a Python package for ease of use.
 
-## Prerequisites
+## Features
 
-- Python 3.x
-- Chrome browser installed
-- [ChromeDriver](https://sites.google.com/chromium.org/driver/) installed and added to the system path.
-- Required Python packages can be installed using `pip install -r requirements.txt`.
+- Efficiently scrape company, job, and founder data.
+- CLI for quick and convenient usage.
+- Python package for integration into your own projects.
+- Extensive configuration options.
+
+## Installation
+
+Detailed instructions on how to install YCombinator-Scraper can be found in the [Installation Guide](installation.md).
+
+## Configuration
+
+Learn how to configure YCombinator-Scraper to suit your needs in the [Configuration](configuration.md) section.
 
 ## Usage
 
-1. **Initialize Driver**
+Explore the different ways to use YCombinator-Scraper:
 
-   ```python
-   from src.scraper import initialize_driver
+- [CLI Usage](usage/cli.md)
+- [Examples](usage/examples.md)
+- [Python Package Usage](usage/package.md)
 
-   # Headless option is set to True by default
-   driver = initialize_driver(headless=True)
-   ```
+## API Reference
 
-   The `initialize_driver` function initializes the Chrome WebDriver. Pass `headless=False` if you want to see the browser in action.
+Refer to the [API Reference](api_reference.md) for detailed information on the Python package's API.
 
-2. **Login to Workatastartup**
+## CLI Reference
 
-   ```python
-   from src.scraper import login
+For information on using the CLI, consult the [CLI Reference](cli_reference.md).
 
-   username = "your_username"
-   password = "your_password"
+## Changelog
 
-   if login(driver, username, password):
-       # Successfully logged in
-       pass
-   else:
-       # Login failed
-       pass
-   ```
+Stay up-to-date with the project's changes and improvements in the [Changelog](changelog.md).
 
-   The `login` function logs in to the Workatastartup website using the provided username and password.
+## License
 
-3. **Load/Save Cookies (Optional)**
-
-   ```python
-   from src.scraper import load_cookies, save_cookies
-
-   # Load cookies from file
-   load_cookies(driver)
-
-   # Save cookies to file
-   save_cookies(driver)
-   ```
-
-   These functions allow you to load previously saved cookies or save the current cookies for future use.
-
-4. **Scrape Job Details**
-
-   ```python
-   from src.scraper import scrape_job_details
-
-   job_url = "https://www.workatastartup.com/jobs/12345"
-   job_data = scrape_job_details(driver, job_url)
-   print(job_data)
-   ```
-
-   The `scrape_job_details` function extracts details such as job title, tags, salary range, and job description from a specific job page.
-
-5. **Scrape Company Details**
-
-   ```python
-   from src.scraper import scrape_company_data
-
-   company_url = "https://www.workatastartup.com/companies/abc"
-   company_data = scrape_company_data(driver, company_url)
-   print(company_data)
-   ```
-
-   The `scrape_company_data` function fetches details about a company, including name, description, tags, job links, and social links.
-
-6. **Scrape Founders Data**
-
-   ```python
-   from src.scraper import scrape_founders_data
-
-   founders_url = "https://www.workatastartup.com/companies/abc"
-   founders_data = scrape_founders_data(driver, founders_url)
-   print(founders_data)
-   ```
-
-   The `scrape_founders_data` function retrieves information about the founders of a company, including name, image URL, description, LinkedIn URL, and optional emails.
-
-7. **Scrape Multiple Companies in Parallel**
-
-   ```python
-   from src.scraper import scrape_jobs_in_parallel, ScrapedData
-
-   company_urls = ["https://www.workatastartup.com/companies/abc", "https://www.workatastartup.com/companies/xyz"]
-   scraped_data = scrape_jobs_in_parallel(username, password, company_urls)
-   print(scraped_data)
-   ```
-
-   The `scrape_jobs_in_parallel` function allows you to scrape data from multiple companies simultaneously. Provide a list of company URLs, and it will return a list of `CompanyData`.
-
-8. **Run the Script**
-
-   Execute the script to perform a sample scraping operation.
-
-   ```bash
-   python script_name.py
-   ```
-
-   Replace `script_name.py` with the actual name of your script.
-
-## Notes
-
-- Ensure you have the necessary permissions before scraping any website.
-- It is recommended to review and comply with the terms of service of the target website.
-
-Feel free to modify the script according to your specific use case and requirements.
+Review the project's licensing details in the [License](license.md) section.

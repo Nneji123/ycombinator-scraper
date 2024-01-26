@@ -1,28 +1,24 @@
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
 from ycombinator_scraper.config import Settings
-from ycombinator_scraper.scraper import scrape_founders_data, FounderData
+from ycombinator_scraper.models import FounderData
+from ycombinator_scraper.scraper import Scraper
 
 settings = Settings()
 
 
 @pytest.fixture
-def driver():
+def scraper():
     # Set up a WebDriver instance for testing
-    chrome_service = ChromeService(executable_path=settings.CHROMEDRIVER_BINARY)
-    driver = webdriver.Chrome(service=chrome_service)
-    yield driver
-    # Close the WebDriver instance after testing
-    driver.quit()
+    scraper = Scraper()
+    yield scraper
 
 
-def test_scrape_founders_data(driver):
+def test_scrape_founders_data(scraper):
     # Mocking company URL for testing
     company_url = "https://www.workatastartup.com/companies/vocode"
 
     # Call the scrape_founders_data function with mocked company URL
-    founders_list = scrape_founders_data(driver, company_url)
+    founders_list = scraper.scrape_founders_data(company_url)
 
     # Assert that the founders_list is a list of FounderData
     assert all(isinstance(founder, FounderData) for founder in founders_list)

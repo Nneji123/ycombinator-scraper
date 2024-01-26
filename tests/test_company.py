@@ -1,7 +1,6 @@
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
 from ycombinator_scraper.config import Settings
+from ycombinator_scraper.models import CompanyData
 from ycombinator_scraper.scraper import Scraper
 
 settings = Settings()

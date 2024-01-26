@@ -1,13 +1,13 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "ycombinator-scraper"
 description = "A Python command-line tool and package for scraping company, job, and founder data from Workatastartup.com"
 readme = "README.md"
 requires-python = ">=3.9"
-license = "MIT"
+license = { file = "LICENSE" }
 authors = [
     { name = "Ifeanyi Nneji", email = "ifeanyinneji777@gmail.com" },
 ]
@@ -50,15 +50,20 @@ dependencies = [
     "pydantic-settings >= 2.1.0",
     "pydantic-core >= 2.14.6",
 ]
-dynamic = ["version"]
+# dynamic = ["version"]
+version = "0.2.0"
+
 
 [project.urls]
 Homepage = "https://github.com/Nneji123/ycombinator-scraper"
 Documentation = "https://Nneji23.github.io/ycombinator-scraper"
 Repository = "https://github.com/Nneji123/ycombinator-scraper"
+"Say Thanks!" = "https://saythanks.io/to/Nneji123"
+"Source" = "https://github.com/Nneji123/ycombinator-scraper"
 
-[tool.hatch.version]
-path = "ycombinator_scraper/__init__.py"
+
+[project.scripts]
+yc_scraper="ycombinator_scraper.cli:cli"
 
 [tool.black]
 line-length = 88
@@ -71,14 +76,16 @@ profile = "black"
 testpaths = ["tests"]
 
 [tool.mypy]
-python_version = 3.8
+python_version = "3.8"
+
+[tool.setuptools]
+py-modules = ["ycombinator_scraper"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "$version"
 version_scheme = "semver"
 version_files = [
-    "pyproject.toml:[tool.hatch.version]",
     "ycombinator_scraper/__init__.py"
 ]
 version_provider = "pep621"
