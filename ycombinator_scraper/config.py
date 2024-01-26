@@ -1,18 +1,6 @@
-import platform
 from pathlib import Path
 
-from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
-
-def get_chromedriver_binary() -> str:
-    platform_name = platform.system().lower()
-    if platform_name == "windows":
-        return "C:/chromedriver/chromedriver.exe"
-    elif platform_name == "linux":
-        return "/usr/local/bin/chromedriver"
-    else:
-        return "chromedriver.exe"
 
 
 class Settings(BaseSettings):
@@ -22,7 +10,3 @@ class Settings(BaseSettings):
     login_password: str
     logs_directory: Path = Path("./logs")
     headless_mode: bool = True
-    chromedriver_binary: str = Field(
-        default=get_chromedriver_binary,
-        env="CHROMEDRIVER_BINARY",
-    )

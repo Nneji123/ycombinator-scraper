@@ -1,10 +1,7 @@
-# Use the official Python image as the base image
 FROM python:3.11
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Install necessary dependencies
 RUN apt-get update && \
     apt-get install -y \
     wget \
@@ -28,30 +25,20 @@ RUN apt-get update && \
     libappindicator1 \
     libasound2 \
     libatk-bridge2.0-0 \
-    libgtk-3-0
+    libgtk-3-0  \
+    dpkg
 
-# Download and install Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
-    apt-get update && \
-    apt-get install -y google-chrome-stable
-
-# Download and install Chromedriver
-RUN CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d. -f1) && \
-    CHROMEDRIVER_VERSION=$(curl -sS https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_$CHROME_VERSION) && \
-    wget -q https://googlechromelabs.github.io/$CHROMEDRIVER_VERSION/chromedriver-linux64.zip && \
-    unzip chromedriver-linux64.zip && \
-    rm chromedriver-linux64.zip && \
-    mv chromedriver /usr/local/bin/
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+RUN apt-get update && apt-get -y install google-chrome-stable
 
 # Copy your Python scripts or CLI tool into the container
 COPY . /app
 
 # Install Python dependencies
-RUN pip install -r requirements.txt  # Adjust this based on your requirements
+RUN pip install -r requirements.txt
 
-# Set environment variables, if needed
-# ENV VARIABLE_NAME=value
+ARG HEADLESS_MODE=True
 
 # Run your CLI tool when the container starts
-CMD ["python", "-m", "cli.py"]
+CMD ["python", "-m", "ycombinator_scraper"]

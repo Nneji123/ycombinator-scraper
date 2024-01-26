@@ -16,3 +16,4 @@ python-dotenv==1.0.1
 ruff==0.1.14
 requests==2.31.0
 selenium==4.17.2
+webdriver-manager==4.0.1

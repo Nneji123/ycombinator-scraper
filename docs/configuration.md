@@ -22,10 +22,6 @@ The directory where log files will be stored. Default is "./logs".
 
 A boolean indicating whether the scraper should run in headless mode. Default is `True`.
 
-### 5. `chromedriver_binary` (str)
-
-The path to the ChromeDriver binary. This setting is automatically determined based on the platform (Windows or Linux). You can also set it manually by providing the path. Default is determined dynamically.
-
 ## Example Configuration
 
 ```ini
@@ -35,7 +31,6 @@ login_username=your_username
 login_password=your_password
 logs_directory=/path/to/logs
 headless_mode=True
-CHROMEDRIVER_BINARY=/path/to/chromedriver
 ```
 
 **Note:** Replace `"your_username"` and `"your_password"` with your actual Workatastartup username and password. Adjust other settings as needed.

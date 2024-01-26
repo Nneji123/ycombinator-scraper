@@ -17,12 +17,11 @@ login_username=your_workatastartup_username
 login_password=your_workatastartup_password
 logs_directory=/path/to/logs
 headless_mode=True
-CHROMEDRIVER_BINARY=/path/to/chromedriver
 ```
 
 Replace placeholders (`your_workatastartup_username`, `your_workatastartup_password`, `/path/to/logs`, `/path/to/chromedriver`) with your actual Workatastartup login credentials, desired logs directory, and the path to the ChromeDriver binary.
 
-You can also export the environment variables. E.g `export CHROMEDRIVER_BINARY=/path/to/chromedriver"
+You can also export the environment variables. E.g `export login_username=/path/to/chromedriver"
 
 **Note:** It's recommended to keep sensitive information like passwords in a secure manner. Do not share your `.env` file publicly.
 

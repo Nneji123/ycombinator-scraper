@@ -73,6 +73,7 @@ markdown_extensions:
       permalink: true
   # Extra
   - mkdocs-click:
+  - markdown_grid_tables:
   - pymdownx.arithmatex:
   - pymdownx.betterem:
       smart_enable: all

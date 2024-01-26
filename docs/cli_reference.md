@@ -78,4 +78,4 @@ yc_scraper scrape-founders --company-url <company_url> --output-format <json/csv
 
 ---
 
-**Note:** Ensure you have configured the necessary settings either in a `.env` file or through environment variables. Additionally, the `chromedriver` binary path should be set using the `CHROMEDRIVER_BINARY` environment variable or specified in the configuration.
+**Note:** Ensure you have configured the necessary settings either in a `.env` file or through environment variables.

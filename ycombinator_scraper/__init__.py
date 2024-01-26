@@ -3,7 +3,5 @@
 #   Licensed under the MIT License. See LICENSE in project root for information.
 """Ycombinator/Workatastartup.com Scraper"""
 
-from .scraper import Scraper
-from .config import Settings
 
 __version__ = "0.5.0"

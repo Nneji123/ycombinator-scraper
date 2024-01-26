@@ -1,6 +1,6 @@
 """Ycombinator-Scraper"""
-
 import pickle
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List
@@ -13,6 +13,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 
 from ycombinator_scraper.config import Settings
 from ycombinator_scraper.models import CompanyData, FounderData, JobData
@@ -61,7 +62,24 @@ class Scraper:
             chrome_options.add_argument("--headless")
             logger.info("Running Scraper in headless mode!")
 
-        chrome_service = ChromeService(executable_path=settings.chromedriver_binary)
+        if sys.platform == "linux":
+            logger.info("Running Scraper in Linux environment!")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-extensions")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--log-level=3")
+            chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+            chrome_options.add_experimental_option(
+                "prefs",
+                {
+                    "profile.managed_default_content_settings.images": 2,
+                    "profile.managed_default_content_settings.stylesheet": 2,
+                    "profile.managed_default_content_settings.fonts": 2,
+                },
+            )
+
+        chrome_service = ChromeService(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
         logger.info("WebDriver initialized")
