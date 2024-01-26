@@ -26,7 +26,7 @@ def cli():
 
 @cli.command()
 def version():
-    click.echo("YCombinator-Scraper CLI Tool v0.4.0")
+    click.echo("YCombinator-Scraper CLI Tool v0.5.0")
 
 
 @cli.command()
