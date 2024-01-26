@@ -252,5 +252,5 @@ class Scraper:
         logger.success(f"Successfully scraped founder's details from: {company_url}")
         return founders_list
 
-    def shutdown_driver(self):
+    def shutdown_driver(self) -> None:
         self.driver.quit()

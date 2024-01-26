@@ -1,4 +1,5 @@
 import pytest
+
 from ycombinator_scraper.config import Settings
 from ycombinator_scraper.models import FounderData
 from ycombinator_scraper.scraper import Scraper
@@ -31,3 +32,5 @@ def test_scrape_founders_data(scraper):
         assert isinstance(founder.founder_image_url, str)
         assert isinstance(founder.founder_description, str)
         assert isinstance(founder.founder_linkedin_url, str)
+
+    scraper.shutdown_driver()

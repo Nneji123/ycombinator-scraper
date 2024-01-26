@@ -1,8 +1,8 @@
 import pytest
+
 from ycombinator_scraper.config import Settings
 from ycombinator_scraper.models import JobData
 from ycombinator_scraper.scraper import Scraper
-
 
 settings = Settings()
 
@@ -32,3 +32,4 @@ def test_scrape_job_data(scraper):
     assert isinstance(job_data.job_tags, list)
     assert isinstance(job_data.job_salary_range, str)
     assert isinstance(job_data.job_description, str)
+    scraper.shutdown_driver()

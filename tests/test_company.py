@@ -34,3 +34,5 @@ def test_scrape_company_data(scraper):
     assert isinstance(company_data.company_tags, list)
     assert isinstance(company_data.company_job_links, list)
     assert isinstance(company_data.company_social_links, list)
+
+    scraper.shutdown_driver()
