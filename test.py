@@ -94,26 +94,25 @@ from ycombinator_scraper.scraper import Scraper
 scraper = Scraper()
 
 # Login (replace 'your_username' and 'your_password' with actual values)
-scraper.login()
-scraper.save_cookies()
+# scraper.login()
 # # Load or save cookies if needed
-# scraper.load_cookies()
+scraper.load_cookies()
 
 # Scrape job data (replace 'job_url' with an actual job URL)
 # job_data = scraper.scrape_job_data('https://www.workatastartup.com/jobs/64089')
 # print(job_data)
 
-# # Scrape company data (replace 'company_url' with an actual company URL)
-# company_data = scraper.scrape_company_data(
-#     "https://www.workatastartup.com/companies/eze"
-# )
-# print(company_data)
+# Scrape founders data (replace 'company_url' with an actual company URL)
+founders_data = scraper.scrape_founders_data(
+    "https://www.workatastartup.com/companies/selectiq"
+)
 
-# # Scrape founders data (replace 'company_url' with an actual company URL)
-# founders_data = scraper.scrape_founders_data(
-#     "https://www.workatastartup.com/companies/eze"
-# )
-# print(founders_data)
+# # Scrape company data (replace 'company_url' with an actual company URL)
+company_data = scraper.scrape_company_data(
+    "https://www.workatastartup.com/companies/selectiq"
+)
+print(company_data.model_dump_json())
+
 
 # # Close the driver when done
 # scraper.driver.quit()

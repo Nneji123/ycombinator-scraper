@@ -1,8 +1,8 @@
+import platform
+from pathlib import Path
+
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pathlib import Path
-import platform
-# from typing import Dict
 
 
 def get_chromedriver_binary() -> str:

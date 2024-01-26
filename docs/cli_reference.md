@@ -75,13 +75,6 @@ ycombinator-scraper scrape-founders --company-url <company_url> --output-format 
 - `--output-format`: Output format (json or csv).
 - `--output-path`: Output path for saved files.
 
-## `interactive`
-
-Enters interactive mode where you can input commands. Type 'exit' to leave.
-
-```bash
-ycombinator-scraper interactive
-```
 
 ---
 

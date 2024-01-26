@@ -1,10 +1,11 @@
 """Ycombinator-Scraper"""
 
 import pickle
+from datetime import datetime
+from pathlib import Path
 from typing import List
 
 from loguru import logger
-from pathlib import Path
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
@@ -12,31 +13,31 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from datetime import datetime
+
 from ycombinator_scraper.config import Settings
+from ycombinator_scraper.models import CompanyData, FounderData, JobData
 from ycombinator_scraper.selectors import (
-    LOGIN_BUTTON_XPATH,
-    USERNAME_INPUT_XPATH,
-    PASSWORD_INPUT_XPATH,
-    SUBMIT_BUTTON_XPATH,
-    JOB_TITLE_CLASS,
-    JOB_TAGS_CLASS,
-    JOB_DESCRIPTION_CLASS,
-    SALARY_RANGE_CLASS,
-    COMPANY_NAME_CLASS,
-    COMPANY_IMAGE_CLASS,
     COMPANY_DESCRIPTION_CLASS_ONE,
     COMPANY_DESCRIPTION_CLASS_TWO,
-    COMPANY_TAGS_CLASS,
+    COMPANY_IMAGE_CLASS,
     COMPANY_JOB_CLASS,
+    COMPANY_NAME_CLASS,
     COMPANY_SOCIAL_CLASS,
-    FOUNDER_NAME_CLASS,
-    FOUNDER_IMAGE_CLASS,
+    COMPANY_TAGS_CLASS,
     FOUNDER_DESCRIPTION_CLASS_ONE,
     FOUNDER_DESCRIPTION_CLASS_TWO,
+    FOUNDER_IMAGE_CLASS,
     FOUNDER_LINKEDIN_CLASS,
+    FOUNDER_NAME_CLASS,
+    JOB_DESCRIPTION_CLASS,
+    JOB_TAGS_CLASS,
+    JOB_TITLE_CLASS,
+    LOGIN_BUTTON_XPATH,
+    PASSWORD_INPUT_XPATH,
+    SALARY_RANGE_CLASS,
+    SUBMIT_BUTTON_XPATH,
+    USERNAME_INPUT_XPATH,
 )
-from ycombinator_scraper.models import CompanyData, FounderData, JobData
 from ycombinator_scraper.utils import strip_html_tags
 
 settings = Settings()
@@ -94,7 +95,6 @@ class Scraper:
             password_input.send_keys(password)
             login_button.click()
             logger.success("Successfully logged in!")
-            self.save_cookies()
             return True
 
         except TimeoutException:

@@ -1,4 +1,5 @@
 import pytest
+
 from ycombinator_scraper.config import Settings
 from ycombinator_scraper.models import CompanyData
 from ycombinator_scraper.scraper import Scraper

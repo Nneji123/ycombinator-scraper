@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+logs/
 
 # C extensions
 *.so
@@ -161,3 +162,5 @@ cython_debug/
 chromedriver.exe
 test.py
 cookies.pkl
+output/
+logs/

@@ -1,12 +1,15 @@
-import click
 from datetime import datetime
-from . import scraper, utils, config
+
+import click
 import pandas as pd
 from loguru import logger
 
+from .config import Settings
+from .scraper import Scraper
+from .utils import get_output_filename
 
-settings = config.Settings()
-cli_scraper = scraper.Scraper()
+settings = Settings()
+scraper = Scraper()
 
 # Create a 'logs' directory if it doesn't exist
 log_directory = settings.logs_directory
@@ -23,7 +26,7 @@ def cli():
 
 @cli.command()
 def version():
-    click.echo("YCombinator-Scraper CLI Tool v0.2.0")
+    click.echo("YCombinator-Scraper CLI Tool v0.4.0")
 
 
 @cli.command()
@@ -51,7 +54,7 @@ def scrape_company_command(company_url, output_format, output_path):
     scraper.load_cookies()
     company_data = scraper.scrape_company_data(company_url)
 
-    output_filename = utils.get_output_filename(
+    output_filename = get_output_filename(
         output_path, output_format, "scraped_company_data"
     )
 
@@ -80,7 +83,7 @@ def scrape_job_command(job_url, output_format, output_path):
     scraper.load_cookies()
     job_data = scraper.scrape_job_data(job_url)
 
-    output_filename = utils.get_output_filename(
+    output_filename = get_output_filename(
         output_path, output_format, "scraped_job_data"
     )
 
@@ -111,33 +114,26 @@ def scrape_founders_command(company_url, output_format, output_path):
     scraper.load_cookies()
     founders_data = scraper.scrape_founders_data(company_url)
 
+    all_founders_data = []  # Accumulate all founders' data in this list
+
     for i, founder in enumerate(founders_data):
-        output_filename = utils.get_output_filename(
-            output_path, output_format, f"scraped_founder_data_{i+1}"
-        )
+        all_founders_data.append(founder.model_dump())
 
-        if output_format == "json":
-            with open(output_filename, "w") as json_file:
-                json_file.write(founder.model_dump_json(indent=2))
-        elif output_format == "csv":
-            df = pd.DataFrame([founder.model_dump()])
-            df.to_csv(output_filename, index=False)
+    output_filename = get_output_filename(
+        output_path, output_format, "scraped_founder_data"
+    )
 
-        logger.success(f"Data saved as {output_format.upper()}: {output_filename}")
+    if output_format == "json":
+        with open(output_filename, "w") as json_file:
+            json_file.write(all_founders_data)
 
+    elif output_format == "csv":
+        df = pd.DataFrame(all_founders_data)
+        df.to_csv(output_filename, index=False)
 
-@cli.command()
-def interactive():
-    click.echo("Entering interactive mode. Type 'exit' to leave.")
-    while True:
-        command = click.prompt("Enter a command", type=str)
-        if command.lower() == "exit":
-            click.echo("Exiting interactive mode.")
-            break
-        else:
-            click.echo(f"Invalid command: {command}")
+    logger.success(f"Data saved as {output_format.upper()}: {output_filename}")
 
 
 if __name__ == "__main__":
-    print("YCombinator-Scraper Version 0.2.0")
+    print("YCombinator-Scraper Version 0.4.0")
     cli()
