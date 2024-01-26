@@ -1,10 +1,10 @@
 """Ycombinator-Scraper"""
 
-import os
 import pickle
 from typing import List
 
 from loguru import logger
+from pathlib import Path
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
@@ -14,8 +14,31 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from datetime import datetime
 from ycombinator_scraper.config import Settings
+from ycombinator_scraper.selectors import (
+    LOGIN_BUTTON_XPATH,
+    USERNAME_INPUT_XPATH,
+    PASSWORD_INPUT_XPATH,
+    SUBMIT_BUTTON_XPATH,
+    JOB_TITLE_CLASS,
+    JOB_TAGS_CLASS,
+    JOB_DESCRIPTION_CLASS,
+    SALARY_RANGE_CLASS,
+    COMPANY_NAME_CLASS,
+    COMPANY_IMAGE_CLASS,
+    COMPANY_DESCRIPTION_CLASS_ONE,
+    COMPANY_DESCRIPTION_CLASS_TWO,
+    COMPANY_TAGS_CLASS,
+    COMPANY_JOB_CLASS,
+    COMPANY_SOCIAL_CLASS,
+    FOUNDER_NAME_CLASS,
+    FOUNDER_IMAGE_CLASS,
+    FOUNDER_DESCRIPTION_CLASS_ONE,
+    FOUNDER_DESCRIPTION_CLASS_TWO,
+    FOUNDER_LINKEDIN_CLASS,
+)
 from ycombinator_scraper.models import CompanyData, FounderData, JobData
 from ycombinator_scraper.utils import strip_html_tags
+
 settings = Settings()
 
 # Create a 'logs' directory if it doesn't exist
@@ -26,52 +49,52 @@ log_file_path = log_directory / f"log_{timestamp_str}.log"
 logger.add(log_file_path, rotation="1 day", level="INFO")
 
 
-
-
 class Scraper:
     def __init__(self, headless: bool = settings.headless_mode):
         self.driver = self.initialize_driver(headless)
+        self.script_directory = Path(__file__).resolve().parent
 
     def initialize_driver(self, headless: bool) -> webdriver.Chrome:
         chrome_options = Options()
-        chrome_options.headless = headless
         if headless:
+            chrome_options.add_argument("--headless")
             logger.info("Running Scraper in headless mode!")
 
-        chrome_service = ChromeService(executable_path=settings.CHROMEDRIVER_BINARY)
+        chrome_service = ChromeService(executable_path=settings.chromedriver_binary)
         driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
         logger.info("WebDriver initialized")
         return driver
 
-    def login(self, username: str, password: str) -> bool:
+    def login(
+        self,
+        username: str = settings.login_username,
+        password: str = settings.login_password,
+    ) -> bool:
         try:
             # Open the WorkForStartups website
             self.driver.get("https://www.workatastartup.com/companies")
 
             login_button = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, "/html/body/header/nav/div[3]/div[2]/a")
-                )
+                EC.presence_of_element_located((By.XPATH, LOGIN_BUTTON_XPATH))
             )
             login_button.click()
 
             username_input = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//*[@id='ycid-input']"))
+                EC.presence_of_element_located((By.XPATH, USERNAME_INPUT_XPATH))
             )
             password_input = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//*[@id='password-input']"))
+                EC.presence_of_element_located((By.XPATH, PASSWORD_INPUT_XPATH))
             )
             login_button = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, "//*[@id='sign-in-card']/div[2]/div[8]/button/span[1]")
-                )
+                EC.presence_of_element_located((By.XPATH, SUBMIT_BUTTON_XPATH))
             )
 
             username_input.send_keys(username)
             password_input.send_keys(password)
             login_button.click()
             logger.success("Successfully logged in!")
+            self.save_cookies()
             return True
 
         except TimeoutException:
@@ -79,14 +102,16 @@ class Scraper:
             return False
 
     def load_cookies(self) -> None:
-        if os.path.exists("cookies.pkl"):
-            with open("cookies.pkl", "rb") as cookies_file:
+        cookies_path = self.script_directory / "data" / "cookies.pkl"
+        if cookies_path.exists():
+            with open(cookies_path, "rb") as cookies_file:
                 cookies = pickle.load(cookies_file)
                 for cookie in cookies:
                     self.driver.add_cookie(cookie)
 
     def save_cookies(self) -> None:
-        with open("cookies.pkl", "wb") as cookies_file:
+        cookies_path = self.script_directory / "data" / "cookies.pkl"
+        with open(cookies_path, "wb") as cookies_file:
             pickle.dump(self.driver.get_cookies(), cookies_file)
 
     def scrape_job_data(self, job_url: str) -> JobData:
@@ -100,29 +125,29 @@ class Scraper:
 
             # Scraping job title
             job_title_elements = self.driver.find_elements(
-                By.CLASS_NAME, "company-name.text-2xl.font-bold"
+                By.CLASS_NAME, JOB_TITLE_CLASS
             )
             if job_title_elements:
                 job_data.job_title = job_title_elements[0].text
 
             # Scraping job tags
-            job_tags_elements = self.driver.find_elements(
-                By.CLASS_NAME, "company-details.my-2.flex.flex-wrap.md\:my-0"
-            )
+            job_tags_elements = self.driver.find_elements(By.CLASS_NAME, JOB_TAGS_CLASS)
             if job_tags_elements:
                 job_data.job_tags = [tag.text for tag in job_tags_elements]
 
             # Scraping salary range (if present)
             try:
                 salary_range_element = self.driver.find_element(
-                    By.CLASS_NAME, "text-gray-500.my-2"
+                    By.CLASS_NAME, SALARY_RANGE_CLASS
                 )
                 job_data.job_salary_range = salary_range_element.text
             except Exception:
                 pass  # Will return None
 
             # Scraping job description
-            job_description_elements = self.driver.find_elements(By.CLASS_NAME, "prose")
+            job_description_elements = self.driver.find_elements(
+                By.CLASS_NAME, JOB_DESCRIPTION_CLASS
+            )
             if len(job_description_elements) >= 2:
                 job_description_html = job_description_elements[1].get_attribute(
                     "outerHTML"
@@ -139,23 +164,23 @@ class Scraper:
         company_details = CompanyData(company_url=company_url)
         try:
             self.driver.get(company_url)
-            company_link = self.driver.find_elements(By.CLASS_NAME, "mt-2.sm\:w-28")
+            company_link = self.driver.find_elements(By.CLASS_NAME, COMPANY_IMAGE_CLASS)
             company_details.company_image = company_link[0].get_attribute("src")
 
             company_name_elements = self.driver.find_elements(
-                By.CLASS_NAME, "company-name.hover\:underline"
+                By.CLASS_NAME, COMPANY_NAME_CLASS
             )
             company_description_elements = self.driver.find_elements(
-                By.CLASS_NAME, "sm\:text-md.prose.col-span-11.mx-5.max-w-none.text-sm"
-            ) or self.driver.find_elements(By.CLASS_NAME, "mt-3.text-gray-700")
+                By.CLASS_NAME, COMPANY_DESCRIPTION_CLASS_ONE
+            ) or self.driver.find_elements(By.CLASS_NAME, COMPANY_DESCRIPTION_CLASS_TWO)
             company_tags_elements = self.driver.find_elements(
-                By.CLASS_NAME, "detail-label.text-sm"
+                By.CLASS_NAME, COMPANY_TAGS_CLASS
             )
             company_job_elements = self.driver.find_elements(
-                By.CLASS_NAME, "font-medium.text-gray-900.hover\:underline.sm\:text-lg"
+                By.CLASS_NAME, COMPANY_JOB_CLASS
             )
             company_social_elements = self.driver.find_elements(
-                By.CLASS_NAME, "text-blue-600.ellipsis"
+                By.CLASS_NAME, COMPANY_SOCIAL_CLASS
             )
 
             company_details.company_name = company_name_elements[0].text
@@ -176,7 +201,9 @@ class Scraper:
                     prefix = social_prefixes.get(
                         i, ""
                     )  # Get the prefix from the dictionary
-                    company_details.company_social_links.append(f"{prefix}{social_link}")
+                    company_details.company_social_links.append(
+                        f"{prefix}{social_link}"
+                    )
         except Exception as e:
             logger.error(f"Error Scraping Company Data: {e}")
 
@@ -190,15 +217,17 @@ class Scraper:
 
         try:
             self.driver.get(company_url)
-            founders_names = self.driver.find_elements(By.CLASS_NAME, "mb-1.font-medium")
+            founders_names = self.driver.find_elements(
+                By.CLASS_NAME, FOUNDER_NAME_CLASS
+            )
             founders_images = self.driver.find_elements(
-                By.CLASS_NAME, "ml-2.mr-2.h-20.w-20.rounded-full.sm\:ml-5"
+                By.CLASS_NAME, FOUNDER_IMAGE_CLASS
             )
             founders_descriptions = self.driver.find_elements(
-                By.CLASS_NAME, "sm\:text-md.text-sm"
-            ) or self.driver.find_elements(By.CLASS_NAME, "sm\:text-md.w-full.text-sm")
+                By.CLASS_NAME, FOUNDER_DESCRIPTION_CLASS_ONE
+            ) or self.driver.find_elements(By.CLASS_NAME, FOUNDER_DESCRIPTION_CLASS_TWO)
             founders_linkedins = self.driver.find_elements(
-                By.CLASS_NAME, "fa.fa-linkedin.ml-4.p-1.text-blue-600"
+                By.CLASS_NAME, FOUNDER_LINKEDIN_CLASS
             )
 
             for i in range(len(founders_names)):
