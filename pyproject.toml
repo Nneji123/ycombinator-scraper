@@ -30,10 +30,11 @@ classifiers = [
     "Operating System :: OS Independent",
     "Typing :: Typed",
     "Framework :: Pydantic",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Internet :: WWW/HTTP :: Browsers",
     "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
     "Topic :: Internet :: WWW/HTTP :: Site Management",
-    "Topic :: Utilities :: Command Line Tools",
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
