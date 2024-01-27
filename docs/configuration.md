@@ -18,10 +18,6 @@ Your Workatastartup password.
 
 The directory where log files will be stored. Default is "./logs".
 
-### 4. `headless_mode` (bool)
-
-A boolean indicating whether the scraper should run in headless mode. Default is `True`.
-
 ## Example Configuration
 
 ```ini
@@ -29,8 +25,6 @@ A boolean indicating whether the scraper should run in headless mode. Default is
 
 login_username=your_username
 login_password=your_password
-logs_directory=/path/to/logs
-headless_mode=True
 ```
 
 **Note:** Replace `"your_username"` and `"your_password"` with your actual Workatastartup username and password. Adjust other settings as needed.

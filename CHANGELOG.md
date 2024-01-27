@@ -3,8 +3,6 @@
 ### Feat
 
 - migrated to chromedriver-manager
-- migrated to chromedriver-manager
-- migrated to chromedriver-manager
 - **general-bugfixes-and-enhancements**: fixed driver running instance
 - update scraper.py to use Oop based approach
 

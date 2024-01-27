@@ -90,5 +90,3 @@ Founder 1: FounderData(
 ```
 
 **Note:** Replace `"your_username"` and `"your_password"` with your actual Workatastartup username and password. Ensure you handle sensitive information securely.
-
-Remember to check the [official documentation](https://github.com/your-username/ycombinator-scraper) for any updates or additional features.

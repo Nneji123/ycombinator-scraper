@@ -61,7 +61,7 @@ Repository = "https://github.com/Nneji123/ycombinator-scraper"
 
 
 [project.scripts]
-ycombinator_scraper="ycombinator_scraper.cli:cli"
+ycscraper="ycombinator_scraper.cli:cli"
 
 [tool.black]
 line-length = 88
@@ -77,7 +77,7 @@ testpaths = ["tests"]
 python_version = "3.8"
 
 [tool.setuptools]
-py-modules = ["ycombinator_scraper"]
+package-dir = {"" = "ycombinator_scraper"}
 
 [tool.commitizen]
 name = "cz_conventional_commits"

@@ -3,7 +3,7 @@
 ## Version
 
 ```bash
-ycombinator_scraper version
+ycscraper version
 ```
 
 Display the version of the YCombinator-Scraper CLI tool.
@@ -11,7 +11,7 @@ Display the version of the YCombinator-Scraper CLI tool.
 ## Login
 
 ```bash
-ycombinator_scraper login
+ycscraper login
 ```
 
 Log in to Workatastartup. You will be prompted to enter your username and password.
@@ -19,7 +19,7 @@ Log in to Workatastartup. You will be prompted to enter your username and passwo
 ## Scrape Company Data
 
 ```bash
-ycombinator_scraper scrape-company --company-url <company-url> --output-format <json/csv> --output-path <output-path>
+ycscraper scrape-company --company-url <company-url> --output-format <json/csv> --output-path <output-path>
 ```
 
 Scrape data for a specific company.
@@ -31,7 +31,7 @@ Scrape data for a specific company.
 ## Scrape Job Data
 
 ```bash
-ycombinator_scraper scrape-job --job-url <job-url> --output-format <json/csv> --output-path <output-path>
+ycscraper scrape-job --job-url <job-url> --output-format <json/csv> --output-path <output-path>
 ```
 
 Scrape data for a specific job.
@@ -43,7 +43,7 @@ Scrape data for a specific job.
 ## Scrape Founders Data
 
 ```bash
-ycombinator_scraper scrape-founders --company-url <company-url> --output-format <json/csv> --output-path <output-path>
+ycscraper scrape-founders --company-url <company-url> --output-format <json/csv> --output-path <output-path>
 ```
 
 Scrape founders data for a specific company.

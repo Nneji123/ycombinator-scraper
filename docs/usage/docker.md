@@ -29,13 +29,6 @@ Replace `your_username` and `your_password` with your actual Workatastartup user
 - `LOGIN_USERNAME`: Your Workatastartup username.
 - `LOGIN_PASSWORD`: Your Workatastartup password.
 
-### Optional Environment Variables
-
-You can also set the following optional environment variables:
-
-- `LOGS_DIRECTORY`: Directory for logs (default is `/app/logs`).
-- `HEADLESS_MODE`: Whether to run the scraper in headless mode (default is `True`).
-
 ## Using the Docker Image from Docker Hub
 
 If you prefer not to build the image locally, you can pull it from Docker Hub:

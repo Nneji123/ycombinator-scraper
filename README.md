@@ -64,7 +64,7 @@ $ pip install ycombinator-scraper
 $ ycombinator_scraper --help
 
 # Output
-YCombinator-Scraper Version 0.5.0
+YCombinator-Scraper Version 0.6.0
 Usage: python -m ycombinator_scraper [OPTIONS] COMMAND [ARGS]...
 
 Options:
@@ -100,7 +100,7 @@ $ docker run nneji123/ycombinator_scraper python -m ycombinator_scraper --help
 ## Usage
 
 ```bash
-ycombinator_scraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
+ycscraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
@@ -108,7 +108,7 @@ This command will scrape data for the specified company and save it in the defau
 ## Example 2: Scrape Job Data using CLI
 
 ```bash
-ycombinator_scraper scrape-job --job-url https://www.workatastartup.com/job/example-job
+ycscraper scrape-job --job-url https://www.workatastartup.com/job/example-job
 ```
 
 This command will scrape data for the specified job and save it in the default output format (JSON).
@@ -116,7 +116,7 @@ This command will scrape data for the specified job and save it in the default o
 ## Example 3: Scrape Founder Data using CLI
 
 ```bash
-ycombinator_scraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
+ycscraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape founder data for the specified company and save it in the default output format (JSON).

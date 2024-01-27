@@ -1,4 +1,3 @@
-import os
 import time
 from pathlib import Path
 from typing import Dict, List
@@ -10,11 +9,21 @@ from pydantic import BaseModel
 OUTPUT_PATH = "output"
 
 
-# TODO: Modify function to append company name to file.
-def get_output_filename(output_path: Path, file_format: str, file_name: str):
-    output_directory = os.path.join(OUTPUT_PATH, output_path)
-    os.makedirs(output_directory, exist_ok=True)
-    return os.path.join(output_directory, f"{file_name}.{file_format}")
+def get_output_filename(
+    output_path: Path, file_format: str, file_name: str, company_name: str
+):
+    # Get the current working directory
+    current_directory = Path.cwd()
+
+    # Create the output directory (if not exists) in the current working directory
+    output_directory = current_directory / "output" / output_path
+    output_directory.mkdir(parents=True, exist_ok=True)
+
+    # Append company name to the file name
+    modified_file_name = f"{file_name}_{company_name}"
+
+    # Construct the full file path
+    return output_directory / f"{modified_file_name}.{file_format}"
 
 
 def strip_html_tags(html_content: str) -> str:

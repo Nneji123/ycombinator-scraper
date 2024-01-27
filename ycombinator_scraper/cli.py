@@ -27,7 +27,7 @@ def cli():
 
 @cli.command()
 def version():
-    click.echo("YCombinator-Scraper CLI Tool v0.5.0")
+    click.echo("YCombinator-Scraper CLI Tool v0.6.0")
 
 
 @cli.command()
@@ -56,7 +56,10 @@ def scrape_company(company_url, output_format, output_path):
     company_data = scraper.scrape_company_data(company_url)
 
     output_filename = get_output_filename(
-        output_path, output_format, "scraped_company_data"
+        output_path,
+        output_format,
+        "scraped_company_data",
+        company_url.strip("https://www.workatastartup.com/companies/"),
     )
 
     if output_format == "json":

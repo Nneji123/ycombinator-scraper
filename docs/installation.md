@@ -15,11 +15,9 @@ Create a `.env` file in your project directory and set the following configurati
 ```ini
 login_username=your_workatastartup_username
 login_password=your_workatastartup_password
-logs_directory=/path/to/logs
-headless_mode=True
 ```
 
-Replace placeholders (`your_workatastartup_username`, `your_workatastartup_password`, `/path/to/logs`, `/path/to/chromedriver`) with your actual Workatastartup login credentials, desired logs directory, and the path to the ChromeDriver binary.
+Replace placeholders (`your_workatastartup_username`, `your_workatastartup_password`) with your actual Workatastartup login credentials, desired logs directory, and the path to the ChromeDriver binary.
 
 You can also export the environment variables. E.g `export login_username=/path/to/chromedriver"
 
@@ -27,10 +25,10 @@ You can also export the environment variables. E.g `export login_username=/path/
 
 ### 3. Run the Scraper
 
-You can now use the `ycombinator-scraper` command to run the scraper:
+You can now use the `ycscraper` command to run the scraper:
 
 ```bash
-ycombinator-scraper
+ycscraper
 ```
 
 ## Installation from Git
@@ -59,10 +57,10 @@ Create a `.env` file in your project directory and set the same configuration va
 
 ### 5. Run the Scraper
 
-You can run the `ycombinator-scraper` using the following command:
+You can run the `ycombinator_scraper` using the following command:
 
 ```bash
-python -m ycombinator-scraper
+python -m ycombinator_scraper
 ```
 
 ## Using Docker
@@ -76,13 +74,5 @@ docker build -t ycombinator-scraper .
 ### 2. Run the Docker Container
 
 ```bash
-docker run -v /path/to/logs:/app/logs ycombinator-scraper
+docker run python -m ycombinator_scraper
 ```
-
-Replace `/path/to/logs` with the desired logs directory on your host machine.
-
-### 3. Export Configuration Variables (Optional)
-
-Create a `.env` file in the `/path/to/logs` directory on your host machine and set the same configuration variables as mentioned in the PyPI installation section.
-
-Enjoy scraping company, job, and founder data from YCombinator's Workatastartup platform!
