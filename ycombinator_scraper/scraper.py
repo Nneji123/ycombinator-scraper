@@ -152,7 +152,7 @@ class Scraper:
             # Scraping job tags
             job_tags_elements = self.driver.find_elements(By.CLASS_NAME, JOB_TAGS_CLASS)
             if job_tags_elements:
-                job_data.job_tags = [tag.text for tag in job_tags_elements]
+                job_data.job_tags = [tag.text.split("\n") for tag in job_tags_elements]
 
             # Scraping salary range (if present)
             try:
@@ -180,7 +180,7 @@ class Scraper:
 
         return job_data
 
-    @timed_cache(seconds=300)
+    # @timed_cache(seconds=300)
     def scrape_company_data(self, company_url: str) -> CompanyData:
         company_details = CompanyData(company_url=company_url)
         try:
@@ -225,9 +225,16 @@ class Scraper:
                     company_details.company_social_links.append(
                         f"{prefix}{social_link}"
                     )
+            company_details.company_founders = self.scrape_founders_data(
+                company_url=company_url
+            )
+            job_data_list = []
+            for job_url in company_details.company_job_links:
+                job_data = self.scrape_job_data(job_url)
+                job_data_list.append(job_data)
+            company_details.job_datas = job_data_list
         except Exception as e:
             logger.error(f"Error Scraping Company Data: {e}")
-
         logger.success(
             f"Successfully scraped Data For Company: {company_details.company_name}"
         )

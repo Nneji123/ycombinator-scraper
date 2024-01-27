@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 import click
@@ -59,7 +60,7 @@ def scrape_company(company_url, output_format, output_path):
     )
 
     if output_format == "json":
-        with open(output_filename, "w") as json_file:
+        with open(output_filename, "w", encoding="utf-8") as json_file:
             json_file.write(company_data.model_dump_json(indent=2))
     elif output_format == "csv":
         df = pd.DataFrame([company_data.model_dump()])
@@ -88,7 +89,7 @@ def scrape_job(job_url, output_format, output_path):
     )
 
     if output_format == "json":
-        with open(output_filename, "w") as json_file:
+        with open(output_filename, "w", encoding="utf-8") as json_file:
             json_file.write(job_data.model_dump_json(indent=2))
     elif output_format == "csv":
         df = pd.DataFrame([job_data.model_dump()])
@@ -114,7 +115,7 @@ def scrape_founders(company_url, output_format, output_path):
     scraper.load_cookies()
     founders_data = scraper.scrape_founders_data(company_url)
 
-    all_founders_data = []  # Accumulate all founders' data in this list
+    all_founders_data = []
 
     for i, founder in enumerate(founders_data):
         all_founders_data.append(founder.model_dump())
@@ -124,8 +125,8 @@ def scrape_founders(company_url, output_format, output_path):
     )
 
     if output_format == "json":
-        with open(output_filename, "w") as json_file:
-            json_file.write(all_founders_data)
+        with open(output_filename, "w", encoding="utf-8") as json_file:
+            json_file.write(json.dumps(all_founders_data))
 
     elif output_format == "csv":
         df = pd.DataFrame(all_founders_data)

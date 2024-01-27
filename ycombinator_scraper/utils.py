@@ -10,6 +10,7 @@ from pydantic import BaseModel
 OUTPUT_PATH = "output"
 
 
+# TODO: Modify function to append company name to file.
 def get_output_filename(output_path: Path, file_format: str, file_name: str):
     output_directory = os.path.join(OUTPUT_PATH, output_path)
     os.makedirs(output_directory, exist_ok=True)
