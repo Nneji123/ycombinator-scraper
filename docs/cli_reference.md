@@ -9,7 +9,7 @@ The YCombinator-Scraper CLI provides commands for interacting with the scraping 
 Displays the current version of the YCombinator-Scraper CLI.
 
 ```bash
-yc_scraper --version
+ycombinator_scraper --version
 ```
 
 ### `--help`
@@ -17,7 +17,7 @@ yc_scraper --version
 Displays information about available commands and their usage.
 
 ```bash
-yc_scraper --help
+ycombinator_scraper --help
 ```
 
 ## `version`
@@ -25,7 +25,7 @@ yc_scraper --help
 Displays the version of the YCombinator-Scraper CLI.
 
 ```bash
-yc_scraper version
+ycombinator_scraper version
 ```
 
 ## `login`
@@ -33,7 +33,7 @@ yc_scraper version
 Logs in to the Workatastartup platform.
 
 ```bash
-yc_scraper login --username <your_username> --password <your_password>
+ycombinator_scraper login --username <your_username> --password <your_password>
 ```
 
 - `--username`: Your Workatastartup username.
@@ -44,7 +44,7 @@ yc_scraper login --username <your_username> --password <your_password>
 Scrapes data for a specified company.
 
 ```bash
-yc_scraper scrape-company --company-url <company_url> --output-format <json/csv> --output-path <output_path>
+ycombinator_scraper scrape-company --company-url <company_url> --output-format <json/csv> --output-path <output_path>
 ```
 
 - `--company-url`: URL of the company to scrape.
@@ -56,7 +56,7 @@ yc_scraper scrape-company --company-url <company_url> --output-format <json/csv>
 Scrapes data for a specified job.
 
 ```bash
-yc_scraper scrape-job --job-url <job_url> --output-format <json/csv> --output-path <output_path>
+ycombinator_scraper scrape-job --job-url <job_url> --output-format <json/csv> --output-path <output_path>
 ```
 
 - `--job-url`: URL of the job to scrape.
@@ -68,7 +68,7 @@ yc_scraper scrape-job --job-url <job_url> --output-format <json/csv> --output-pa
 Scrapes data for the founders of a specified company.
 
 ```bash
-yc_scraper scrape-founders --company-url <company_url> --output-format <json/csv> --output-path <output_path>
+ycombinator_scraper scrape-founders --company-url <company_url> --output-format <json/csv> --output-path <output_path>
 ```
 
 - `--company-url`: URL of the company to scrape founders data.

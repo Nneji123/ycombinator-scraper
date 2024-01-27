@@ -4,7 +4,6 @@ beautifulsoup4==4.12.3
 commitizen==3.13.0
 isort==5.13.2
 loguru==0.7.2
-mkdocs-material==9.5.5
 numpy==1.26.3
 pandas==2.2.0
 pathlib==1.0.1

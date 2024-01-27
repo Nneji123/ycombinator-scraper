@@ -61,7 +61,7 @@ Repository = "https://github.com/Nneji123/ycombinator-scraper"
 
 
 [project.scripts]
-yc_scraper="ycombinator_scraper.cli:cli"
+ycombinator_scraper="ycombinator_scraper.cli:cli"
 
 [tool.black]
 line-length = 88

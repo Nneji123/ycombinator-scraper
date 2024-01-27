@@ -5,7 +5,7 @@ This section provides some examples of how to use the YCombinator-Scraper tool a
 ## Example 1: Scrape Company Data using CLI
 
 ```bash
-yc_scraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
+ycombinator_scraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
@@ -13,7 +13,7 @@ This command will scrape data for the specified company and save it in the defau
 ## Example 2: Scrape Job Data using CLI
 
 ```bash
-yc_scraper scrape-job --job-url https://www.workatastartup.com/job/example-job
+ycombinator_scraper scrape-job --job-url https://www.workatastartup.com/job/example-job
 ```
 
 This command will scrape data for the specified job and save it in the default output format (JSON).
@@ -21,7 +21,7 @@ This command will scrape data for the specified job and save it in the default o
 ## Example 3: Scrape Founder Data using CLI
 
 ```bash
-yc_scraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
+ycombinator_scraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape founder data for the specified company and save it in the default output format (JSON).
