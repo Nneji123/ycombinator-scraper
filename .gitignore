@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 logs/
-
+requirements-ci-cd.txt
 # C extensions
 *.so
 .ruff_cache/

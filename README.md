@@ -61,11 +61,11 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 
 ```console
 $ pip install ycombinator-scraper
-$ yc_scraper --help
+$ ycombinator_scraper --help
 
 # Output
 YCombinator-Scraper Version 0.5.0
-Usage: python -m yc_scraper [OPTIONS] COMMAND [ARGS]...
+Usage: python -m ycombinator_scraper [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --help  Show this message and exit.
@@ -82,8 +82,8 @@ Commands:
 ```bash
 $ git clone https://github.com/Nneji12/ycombinator-scraper
 $ cd ycombinator-scraper
-$ docker build -t your_name/scraper_name . # e.g docker build -t nneji123/yc_scraper .
-$ docker run nneji123/yc_scraper python -m ycombinator_scraper --help
+$ docker build -t your_name/scraper_name . # e.g docker build -t nneji123/ycombinator_scraper .
+$ docker run nneji123/ycombinator_scraper python -m ycombinator_scraper --help
 ```
 
 ## Dependencies
@@ -100,7 +100,7 @@ $ docker run nneji123/yc_scraper python -m ycombinator_scraper --help
 ## Usage
 
 ```bash
-yc-scraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
+ycombinator_scraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
@@ -108,7 +108,7 @@ This command will scrape data for the specified company and save it in the defau
 ## Example 2: Scrape Job Data using CLI
 
 ```bash
-yc-scraper scrape-job --job-url https://www.workatastartup.com/job/example-job
+ycombinator_scraper scrape-job --job-url https://www.workatastartup.com/job/example-job
 ```
 
 This command will scrape data for the specified job and save it in the default output format (JSON).
@@ -116,7 +116,7 @@ This command will scrape data for the specified job and save it in the default o
 ## Example 3: Scrape Founder Data using CLI
 
 ```bash
-yc-scraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
+ycombinator_scraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape founder data for the specified company and save it in the default output format (JSON).
