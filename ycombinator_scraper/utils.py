@@ -7,10 +7,10 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from pydantic import BaseModel
 
-OUTPUT_PATH = Path("./output")
+OUTPUT_PATH = "output"
 
 
-def get_output_filename(output_path, file_format, file_name):
+def get_output_filename(output_path: Path, file_format: str, file_name: str):
     output_directory = os.path.join(OUTPUT_PATH, output_path)
     os.makedirs(output_directory, exist_ok=True)
     return os.path.join(output_directory, f"{file_name}.{file_format}")
@@ -26,14 +26,12 @@ def write_json_to_csv(json_data: List[Dict], csv_filename: str) -> None:
     df.to_csv(csv_filename, index=False)
 
 
-def generate_csv_from_pydantic_data(data: List[BaseModel], file_path: str):
+def generate_csv_from_pydantic_data(data: List[BaseModel], file_path: str) -> None:
     if not data:
         raise ValueError("Data list is empty")
 
     data_dicts = [item.model_dump() for item in data]
-
     df = pd.DataFrame(data_dicts)
-
     df.to_csv(file_path, index=False)
 
 
@@ -46,8 +44,6 @@ def timed_cache(seconds: int):
         def wrapper(*args, **kwargs):
             key = (func, args, frozenset(kwargs.items()))
             current_time = time.time()
-
-            # Check if the result is in the cache and not expired
             if (
                 key in cache_store
                 and current_time - cache_store[key]["timestamp"] < seconds

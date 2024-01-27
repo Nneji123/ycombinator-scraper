@@ -39,7 +39,7 @@ from ycombinator_scraper.selectors import (
     SUBMIT_BUTTON_XPATH,
     USERNAME_INPUT_XPATH,
 )
-from ycombinator_scraper.utils import strip_html_tags
+from ycombinator_scraper.utils import strip_html_tags, timed_cache
 
 settings = Settings()
 
@@ -132,6 +132,7 @@ class Scraper:
         with open(cookies_path, "wb") as cookies_file:
             pickle.dump(self.driver.get_cookies(), cookies_file)
 
+    @timed_cache(seconds=300)
     def scrape_job_data(self, job_url: str) -> JobData:
         try:
             job_data = JobData(job_url=job_url)
@@ -179,6 +180,7 @@ class Scraper:
 
         return job_data
 
+    @timed_cache(seconds=300)
     def scrape_company_data(self, company_url: str) -> CompanyData:
         company_details = CompanyData(company_url=company_url)
         try:
@@ -231,6 +233,7 @@ class Scraper:
         )
         return company_details
 
+    @timed_cache(seconds=300)
     def scrape_founders_data(self, company_url: str) -> List[FounderData]:
         founders_list = []
 

@@ -1,5 +1,3 @@
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
 default_language_version:
     python: python3.11.2
 repos:
@@ -32,6 +30,11 @@ repos:
     hooks:
     -   id: black
         language_version: python3.11
+# -   repo: https://github.com/commitizen-tools/commitizen
+#     rev: v1.17.0
+#     hooks:
+# -   id: commitizen
+#     stages: [commit-msg]
 ci:
     autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
     autoupdate_commit_msg: ⬆ [pre-commit.ci] pre-commit autoupdate
