@@ -1,8 +1,31 @@
 # Test utility functions 
 import os
+import pytest
 from pathlib import Path
-from ycombinator_scraper.utils import get_output_filename, strip_html_tags, write_json_to_csv, generate_csv_from_pydantic_data
+from ycombinator_scraper.utils import get_output_filename, strip_html_tags, write_json_to_csv, timed_cache, generate_csv_from_pydantic_data
 from pydantic import BaseModel
+import time
+
+@timed_cache(seconds=2)
+def mock_function(arg):
+    return arg * 2
+
+def test_timed_cache():
+    # Initial call should compute and store the result
+    result1 = mock_function(5)
+    assert result1 == 10
+
+    # Second call within 2 seconds should retrieve from cache
+    result2 = mock_function(5)
+    assert result2 == 10
+
+    # Sleep for more than 2 seconds
+    time.sleep(3)
+
+    # Third call after expiration should compute and store the result again
+    result3 = mock_function(5)
+    assert result3 == 10
+
 
 def test_get_output_filename():
     output_path = Path("subfolder")
@@ -52,3 +75,7 @@ def test_generate_csv_from_pydantic_data():
     # (You can also read the file and assert specific content)
     # Cleanup: Remove the created file
     os.remove(file_path)
+
+def test_generate_csv_from_pydantic_data_with_empty_data():
+    with pytest.raises(ValueError, match="Data list is empty"):
+        generate_csv_from_pydantic_data([], "test_empty_data.csv")
