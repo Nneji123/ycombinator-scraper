@@ -6,9 +6,6 @@ RUN apt-get update && \
     apt-get install -y \
     wget \
     unzip \
-    libglib2.0-0 \
-    libnss3 \
-    libx11 \
     dpkg
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
