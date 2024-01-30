@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="./docs/img/logo.svg" alt="Ycombinator_Scraper logo" width="200" height="200" role="img">
+<img src="https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/logo.svg" alt="Ycombinator_Scraper logo" width="200" height="200" role="img">
 
 | | |
 | --- | --- |
