@@ -58,7 +58,7 @@ class Scraper:
 
     def initialize_driver(self) -> webdriver.Chrome:
         chrome_options = Options()
-          chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
             logger.info("Running Scraper in headless mode!")
 
         if sys.platform == "linux":
