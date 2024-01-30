@@ -51,6 +51,7 @@ nav:
   - Usage:
     - CLI: usage/cli.md
     - Library: usage/package.md
+    - Docker: usage/docker.md
     - Examples: usage/examples.md
   - API Reference: api_reference.md
   - CLI Reference: cli_reference.md
