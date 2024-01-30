@@ -2,7 +2,7 @@ import os
 import json
 import pytest
 from click.testing import CliRunner
-from your_cli_module import cli  # Replace 'your_cli_module' with the actual module name
+from ycombinator_scraper.cli import cli  # Replace 'your_cli_module' with the actual module name
 
 @pytest.fixture
 def runner():
