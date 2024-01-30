@@ -3,4 +3,4 @@
 #   Licensed under the MIT License. See LICENSE in project root for information.
 """Ycombinator/Workatastartup.com Scraper"""
 
-__version__ = "0.6.0"
+__version__ = "0.7.1"
