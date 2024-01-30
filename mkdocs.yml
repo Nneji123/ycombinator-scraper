@@ -45,7 +45,7 @@ repo_url: https://github.com/Nneji123/ycombinator-scraper
 edit_uri: ""
 
 nav:
-  - Home: index.md
+  - Home: ../readme.md
   - Installation Guide: installation.md
   - Configuration: configuration.md
   - Usage:
