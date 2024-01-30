@@ -52,14 +52,13 @@ logger.add(log_file_path, rotation="1 day", level="INFO")
 
 
 class Scraper:
-    def __init__(self, headless: bool = settings.headless_mode):
-        self.driver = self.initialize_driver(headless)
+    def __init__(self):
+        self.driver = self.initialize_driver()
         self.script_directory = Path(__file__).resolve().parent
 
-    def initialize_driver(self, headless: bool) -> webdriver.Chrome:
+    def initialize_driver(self) -> webdriver.Chrome:
         chrome_options = Options()
-        if headless:
-            chrome_options.add_argument("--headless")
+          chrome_options.add_argument("--headless")
             logger.info("Running Scraper in headless mode!")
 
         if sys.platform == "linux":
