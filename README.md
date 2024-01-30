@@ -79,10 +79,10 @@ Built for developers, by developers.
 
 ```console
 $ pip install ycombinator-scraper
-$ ycombinator_scraper --help
+$ ycscraper --help
 
 # Output
-YCombinator-Scraper Version 0.6.0
+YCombinator-Scraper Version 0.7.0
 Usage: python -m ycombinator_scraper [OPTIONS] COMMAND [ARGS]...
 
 Options:
@@ -117,29 +117,14 @@ $ docker run nneji123/ycombinator_scraper python -m ycombinator_scraper --help
 
 ## Usage
 
+### With CLI
 ```bash
 ycscraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
 
-## Example 2: Scrape Job Data using CLI
-
-```bash
-ycscraper scrape-job --job-url https://www.workatastartup.com/job/example-job
-```
-
-This command will scrape data for the specified job and save it in the default output format (JSON).
-
-## Example 3: Scrape Founder Data using CLI
-
-```bash
-ycscraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
-```
-
-This command will scrape founder data for the specified company and save it in the default output format (JSON).
-
-## Example 4: Scrape Company Data using Python Package
+### With Library 
 
 ```python
 from ycombinator_scraper import Scraper
@@ -148,12 +133,13 @@ scraper = Scraper()
 company_data = scraper.scrape_company_data("https://www.workatastartup.com/company/example-inc")
 print(company_data.model_dump_json(indent=2))
 ```
-
 Pydantic is used under the hood so methods like `model_dump_json` are available for all the scraped data.
+
+> **You can view more examples here: [Examples](https://nneji123.github.io/ycombinator-scraper/usage/examples)**
 
 ## Documentation
 
-The [documentation](https://nneji123.github.io/ycombinator_scraper/) is made with [Material for MkDocs](https://github.com/squidfunk/mkdocs-material) and is hosted by [GitHub Pages](https://docs.github.com/en/pages).
+The [documentation](https://nneji123.github.io/ycombinator-scraper/) is made with [Material for MkDocs](https://github.com/squidfunk/mkdocs-material) and is hosted by [GitHub Pages](https://docs.github.com/en/pages).
 
 ## License
 
