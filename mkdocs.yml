@@ -1,5 +1,5 @@
 site_name: YCombinator-Scraper
-site_description: A Python command-line tool and package for scraping company, job, and founder data from Workatastartup.com.
+site_description: A Python command-line tool and library for scraping companies, jobs, and founders data from Workatastartup.com (by Ycombinator).
 site_url: https://nneji123.github.io/ycombinator-scraper
 
 theme:
@@ -45,13 +45,13 @@ repo_url: https://github.com/Nneji123/ycombinator-scraper
 edit_uri: ""
 
 nav:
-  - Home: ../readme.md
+  - Home: index.md
   - Installation Guide: installation.md
   - Configuration: configuration.md
   - Usage:
     - CLI: usage/cli.md
+    - Library: usage/package.md
     - Examples: usage/examples.md
-    - Package: usage/package.md
   - API Reference: api_reference.md
   - CLI Reference: cli_reference.md
   - Changelog: changelog.md
