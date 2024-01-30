@@ -8,24 +8,7 @@ RUN apt-get update && \
     unzip \
     libglib2.0-0 \
     libnss3 \
-    libx11-6 \
-    libx11-xcb1 \
-    libxcb1 \
-    libxcomposite1 \
-    libxcursor1 \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    libxi6 \
-    libxrandr2 \
-    libxrender1 \
-    libxss1 \
-    libxtst6 \
-    fonts-liberation \
-    libappindicator1 \
-    libasound2 \
-    libatk-bridge2.0-0 \
-    libgtk-3-0  \
+    libx11 \
     dpkg
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
