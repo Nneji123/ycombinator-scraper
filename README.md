@@ -19,11 +19,29 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 
 ---
 
-**Documentation**: <a href="https://nneji123.github.io/ycombinator_scraper" target="_blank">https://nneji123.github.io/ycombinator_scraper</a>
+**Documentation**: <a href="https://nneji123.github.io/ycombinator-scraper" target="_blank">https://nneji123.github.io/ycombinator-scraper</a>
 
-**Source Code**: <a href="https://github.com/nneji123/ycombinator_scraper" target="_blank">https://github.com/nneji123/ycombinator_scraper</a>
+**Source Code**: <a href="https://github.com/nneji123/ycombinator-scraper" target="_blank">https://github.com/nneji123/ycombinator-scraper</a>
 
 ---
+
+# Sponsor
+
+![rds-cost](https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/proxycurl.png)
+[Proxycurl APIs](https://nubela.co/proxycurl/?utm_campaign=influencer%20marketing&utm_source=github&utm_medium=social&utm_term=-&utm_content=nneji123)
+
+Scrape public profile data at scale with Proxycurl APIs.
+
+- Scraping Public profiles are battle tested in court in HiQ VS LinkedIn case.
+- GDPR, CCPA, SOC2 compliant.
+- High rate limit - 300 requests/minute.
+- Fast - APIs respond in ~2s.
+- Fresh data - 88% of data is scraped real-time, other 12% are not older than 29 days.
+- High accuracy.
+- Tons of data points returned per profile
+
+Built for developers, by developers.
+
 
 ## Features
 
