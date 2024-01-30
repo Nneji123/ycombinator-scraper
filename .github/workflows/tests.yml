@@ -26,5 +26,6 @@ jobs:
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
           pip install -r requirements-test.txt
-          pip install ycombinator-scraper 
+          pip install ycombinator-scraper
+          mkdir logs
           pytest tests
