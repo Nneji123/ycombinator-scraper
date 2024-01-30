@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     login_username: str
     login_password: str
     logs_directory: DirectoryPath = Path("./logs")
-    headless_mode: bool = True
 
     @classmethod
     def create_logs_directory(cls):

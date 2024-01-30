@@ -2,11 +2,11 @@
 
 <div align="center">
 
-<img src="./docs/img/logo.svg" alt="Ycombinator_Scraper logo" width="200" height="200" role="img">
+<img src="https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/logo.svg" alt="Ycombinator_Scraper logo" width="200" height="200" role="img">
 
 | | |
 | --- | --- |
-| CI/CD | [![CI - Test](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml) [![CI - Codecov](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/codecov.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/codecov.yml) [![CD - Build and Push Docker Image](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docker-image.yml) [![Bump and Release](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/release.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/release.yml) |
+| CI/CD | [![CI - Test](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml) [![CI - Codecov](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/codecov.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/codecov.yml) [![publish-pypi](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/pypi.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/pypi.yml) [![Coverage](https://codecov.io/gh/Nneji123/ycombinator-scraper/graph/badge.svg?token=37muKJo0SL)](https://codecov.io/gh/Nneji123/ycombinator-scraper)|
 | Docs | [![Docs](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docs.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docs.yml) |
 | Package | [![PyPI - Version](https://img.shields.io/pypi/v/ycombinator-scraper.svg?logo=pypi&label=PyPI&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/ycombinator-scraper.svg?color=blue&label=Downloads&logo=pypi&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ycombinator-scraper.svg?logo=python&label=Python&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) |
 | Meta |  [![linting - Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![License - MIT](https://img.shields.io/badge/license-MIT-9400d3.svg)](./LICENSE) |
@@ -19,11 +19,29 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 
 ---
 
-**Documentation**: <a href="https://nneji123.github.io/ycombinator_scraper" target="_blank">https://nneji123.github.io/ycombinator_scraper</a>
+**Documentation**: <a href="https://nneji123.github.io/ycombinator-scraper" target="_blank">https://nneji123.github.io/ycombinator-scraper</a>
 
-**Source Code**: <a href="https://github.com/nneji123/ycombinator_scraper" target="_blank">https://github.com/nneji123/ycombinator_scraper</a>
+**Source Code**: <a href="https://github.com/nneji123/ycombinator-scraper" target="_blank">https://github.com/nneji123/ycombinator-scraper</a>
 
 ---
+
+# Sponsor
+
+![rds-cost](https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/proxycurl.png)
+[Proxycurl APIs](https://nubela.co/proxycurl/?utm_campaign=influencer%20marketing&utm_source=github&utm_medium=social&utm_term=-&utm_content=nneji123)
+
+Scrape public profile data at scale with Proxycurl APIs.
+
+- Scraping Public profiles are battle tested in court in HiQ VS LinkedIn case.
+- GDPR, CCPA, SOC2 compliant.
+- High rate limit - 300 requests/minute.
+- Fast - APIs respond in ~2s.
+- Fresh data - 88% of data is scraped real-time, other 12% are not older than 29 days.
+- High accuracy.
+- Tons of data points returned per profile
+
+Built for developers, by developers.
+
 
 ## Features
 
@@ -61,10 +79,10 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 
 ```console
 $ pip install ycombinator-scraper
-$ ycombinator_scraper --help
+$ ycscraper --help
 
 # Output
-YCombinator-Scraper Version 0.6.0
+YCombinator-Scraper Version 0.7.0
 Usage: python -m ycombinator_scraper [OPTIONS] COMMAND [ARGS]...
 
 Options:
@@ -99,29 +117,14 @@ $ docker run nneji123/ycombinator_scraper python -m ycombinator_scraper --help
 
 ## Usage
 
+### With CLI
 ```bash
 ycscraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
 ```
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
 
-## Example 2: Scrape Job Data using CLI
-
-```bash
-ycscraper scrape-job --job-url https://www.workatastartup.com/job/example-job
-```
-
-This command will scrape data for the specified job and save it in the default output format (JSON).
-
-## Example 3: Scrape Founder Data using CLI
-
-```bash
-ycscraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
-```
-
-This command will scrape founder data for the specified company and save it in the default output format (JSON).
-
-## Example 4: Scrape Company Data using Python Package
+### With Library 
 
 ```python
 from ycombinator_scraper import Scraper
@@ -130,12 +133,13 @@ scraper = Scraper()
 company_data = scraper.scrape_company_data("https://www.workatastartup.com/company/example-inc")
 print(company_data.model_dump_json(indent=2))
 ```
-
 Pydantic is used under the hood so methods like `model_dump_json` are available for all the scraped data.
+
+> **You can view more examples here: [Examples](https://nneji123.github.io/ycombinator-scraper/usage/examples)**
 
 ## Documentation
 
-The [documentation](https://nneji123.github.io/ycombinator_scraper/) is made with [Material for MkDocs](https://github.com/squidfunk/mkdocs-material) and is hosted by [GitHub Pages](https://docs.github.com/en/pages).
+The [documentation](https://nneji123.github.io/ycombinator-scraper/) is made with [Material for MkDocs](https://github.com/squidfunk/mkdocs-material) and is hosted by [GitHub Pages](https://docs.github.com/en/pages).
 
 ## License
 
