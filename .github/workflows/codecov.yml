@@ -22,7 +22,7 @@ jobs:
       run: pip install -r requirements-test.txt && pip install ycombinator-scraper
 
     - name: Run tests and collect coverage
-      run:  mkdir logs && pytest --cov=ycombinator_scraper tests --cov-report=xml
+      run:  echo "${{ secrets.ENV_FILE }}" > .env && mkdir logs && pytest --cov=ycombinator_scraper tests --cov-report=xml
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
