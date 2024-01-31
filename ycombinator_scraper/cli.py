@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 import click
 import pandas as pd
@@ -12,13 +11,6 @@ from .utils import get_output_filename
 settings = Settings()
 scraper = Scraper()
 
-# Create a 'logs' directory if it doesn't exist
-log_directory = settings.logs_directory
-log_directory.mkdir(exist_ok=True)
-timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-log_file_path = log_directory / f"log_{timestamp_str}.log"
-logger.add(log_file_path, rotation="1 day", level="INFO")
-
 
 @click.group()
 def cli():
@@ -27,7 +19,7 @@ def cli():
 
 @cli.command()
 def version():
-    click.echo("YCombinator-Scraper CLI Tool v0.6.0")
+    click.echo("YCombinator-Scraper CLI Tool v0.7.1")
 
 
 @cli.command()
@@ -36,8 +28,8 @@ def version():
     "--password", prompt=True, hide_input=True, help="Your Workatastartup password"
 )
 def login(username, password):
-    if scraper.login(username, password):
-        scraper.save_cookies()
+    scraper.login(username, password)
+    scraper.save_cookies()
 
 
 @cli.command()
@@ -88,7 +80,10 @@ def scrape_job(job_url, output_format, output_path):
     job_data = scraper.scrape_job_data(job_url)
 
     output_filename = get_output_filename(
-        output_path, output_format, "scraped_job_data"
+        output_path,
+        output_format,
+        "scraped_job_data",
+        job_url.strip("https://www.workatastartup.com/jobs/"),
     )
 
     if output_format == "json":
@@ -124,7 +119,10 @@ def scrape_founders(company_url, output_format, output_path):
         all_founders_data.append(founder.model_dump())
 
     output_filename = get_output_filename(
-        output_path, output_format, "scraped_founder_data"
+        output_path,
+        output_format,
+        "scraped_founder_data",
+        company_url.strip("https://www.workatastartup.com/companies/"),
     )
 
     if output_format == "json":

@@ -1,7 +1,6 @@
 """Ycombinator-Scraper"""
 import pickle
 import sys
-from datetime import datetime
 from pathlib import Path
 from typing import List
 
@@ -42,13 +41,6 @@ from ycombinator_scraper.selectors import (
 from ycombinator_scraper.utils import strip_html_tags, timed_cache
 
 settings = Settings()
-
-# Create a 'logs' directory if it doesn't exist
-log_directory = settings.logs_directory
-log_directory.mkdir(exist_ok=True)
-timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-log_file_path = log_directory / f"log_{timestamp_str}.log"
-logger.add(log_file_path, rotation="1 day", level="INFO")
 
 
 class Scraper:
