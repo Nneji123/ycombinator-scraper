@@ -24,7 +24,7 @@ jobs:
     - name: Install requirements
       run: |
         pip install -r requirements-test.txt
-        pip install ycombinator-scraper
+        
 
     - name: Run tests and collect coverage
       run:  |
