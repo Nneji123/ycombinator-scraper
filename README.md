@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/logo.svg" alt="Ycombinator_Scraper logo" width="200" height="200" role="img">
+<img src="https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/logo.png" alt="Ycombinator_Scraper logo" width="200" height="200" role="img">
 
 | | |
 | --- | --- |
@@ -29,7 +29,7 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 [Proxycurl APIs](https://nubela.co/proxycurl/?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)
 
 
-![Logo with tagline (1)](https://github.com/Nneji123/ycombinator-scraper/assets/101701760/2f59fe31-f69d-41a8-ab7b-5b66fbe590ed)
+![https://nubela.co/proxycurl?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)](https://github.com/Nneji123/ycombinator-scraper/assets/101701760/2f59fe31-f69d-41a8-ab7b-5b66fbe590ed)
 
 Scrape public LinkedIn profile data at scale with Proxycurl APIs.
 
