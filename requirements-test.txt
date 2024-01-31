@@ -1,15 +1,12 @@
 click==8.1.7
-pydantic==2.5.3
-pydantic-settings==2.1.0
-pydantic_core==2.14.6
 pytest
 pytest-cov
 pathlib
 beautifulsoup4==4.12.3
 loguru==0.7.2
-numpy==1.26.3
 pandas==2.2.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
 requests==2.31.0
 selenium==4.17.2
+webdriver-manager==4.0.1
