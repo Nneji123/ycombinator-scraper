@@ -7,6 +7,7 @@ requirements-ci-cd.txt
 # C extensions
 *.so
 .ruff_cache/
+test_data/
 # Distribution / packaging
 .Python
 build/
