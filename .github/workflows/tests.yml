@@ -20,12 +20,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Setup Chrome dependencies
-        run:  cd .github && cd scripts && ./run.sh
+        run: | 
+          cd .github
+          cd scripts
+          ./run.sh
 
       - name: Run Tests
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
           pip install -r requirements-test.txt
-          pip install ycombinator-scraper
           mkdir logs
           pytest tests
