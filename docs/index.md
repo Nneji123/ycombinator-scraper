@@ -1,7 +1,5 @@
 # YCombinator-Scraper
 
-<div align="center">
-
 <img src="https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/logo.svg" alt="Ycombinator_Scraper logo" width="200" height="200" role="img">
 
 | | |
@@ -10,8 +8,6 @@
 | Docs | [![Docs](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docs.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docs.yml) |
 | Package | [![PyPI - Version](https://img.shields.io/pypi/v/ycombinator-scraper.svg?logo=pypi&label=PyPI&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/ycombinator-scraper.svg?color=blue&label=Downloads&logo=pypi&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ycombinator-scraper.svg?logo=python&label=Python&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) |
 | Meta |  [![linting - Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![License - MIT](https://img.shields.io/badge/license-MIT-9400d3.svg)](license.md) |
-
-</div>
 
 -----
 
