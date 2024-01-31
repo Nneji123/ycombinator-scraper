@@ -4,7 +4,7 @@
 
 | | |
 | --- | --- |
-| CI/CD | [![CI - Test](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml) [![CI - Codecov](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/codecov.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/codecov.yml) [![publish-pypi](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/pypi.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/pypi.yml) [![Coverage](https://codecov.io/gh/Nneji123/ycombinator-scraper/graph/badge.svg?token=37muKJo0SL)](https://codecov.io/gh/Nneji123/ycombinator-scraper)|
+| CI/CD | [![CI - Test](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/tests.yml)  [![publish-pypi](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/pypi.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/pypi.yml) [![Coverage](https://codecov.io/gh/Nneji123/ycombinator-scraper/graph/badge.svg?token=37muKJo0SL)](https://codecov.io/gh/Nneji123/ycombinator-scraper)|
 | Docs | [![Docs](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docs.yml/badge.svg)](https://github.com/Nneji123/ycombinator-scraper/actions/workflows/docs.yml) |
 | Package | [![PyPI - Version](https://img.shields.io/pypi/v/ycombinator-scraper.svg?logo=pypi&label=PyPI&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/ycombinator-scraper.svg?color=blue&label=Downloads&logo=pypi&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ycombinator-scraper.svg?logo=python&label=Python&logoColor=gold)](https://pypi.org/project/ycombinator-scraper/) |
 | Meta |  [![linting - Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![License - MIT](https://img.shields.io/badge/license-MIT-9400d3.svg)](license.md) |
@@ -22,11 +22,12 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 ---
 
 # Sponsor
+[Proxycurl APIs](https://nubela.co/proxycurl/?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)
 
-![rds-cost](https://raw.githubusercontent.com/nneji123/ycombinator-scraper/main/docs/img/proxycurl.png)
-[Proxycurl APIs](https://nubela.co/proxycurl/?utm_campaign=influencer%20marketing&utm_source=github&utm_medium=social&utm_term=-&utm_content=nneji123)
 
-Scrape public profile data at scale with Proxycurl APIs.
+![Logo with tagline (1)](https://github.com/Nneji123/ycombinator-scraper/assets/101701760/2f59fe31-f69d-41a8-ab7b-5b66fbe590ed)
+
+Scrape public LinkedIn profile data at scale with Proxycurl APIs.
 
 - Scraping Public profiles are battle tested in court in HiQ VS LinkedIn case.
 - GDPR, CCPA, SOC2 compliant.
