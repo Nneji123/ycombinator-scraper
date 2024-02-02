@@ -29,7 +29,7 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 [Proxycurl APIs](https://nubela.co/proxycurl/?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)
 
 
-![https://nubela.co/proxycurl?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)](https://github.com/Nneji123/ycombinator-scraper/assets/101701760/2f59fe31-f69d-41a8-ab7b-5b66fbe590ed)
+[<img src="https://github.com/Nneji123/ycombinator-scraper/assets/101701760/2f59fe31-f69d-41a8-ab7b-5b66fbe590ed">](https://nubela.co/proxycurl?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)
 
 Scrape public LinkedIn profile data at scale with Proxycurl APIs.
 
