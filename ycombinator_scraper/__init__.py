@@ -4,4 +4,4 @@
 """Ycombinator/Workatastartup.com Scraper"""
 from ycombinator_scraper.scraper import Scraper
 
-__version__ = "0.7.1"
+__version__ = "0.7.3"
