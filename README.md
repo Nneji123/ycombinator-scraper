@@ -120,7 +120,7 @@ $ docker run nneji123/ycombinator_scraper python -m ycombinator_scraper --help
 
 ### With CLI
 ```bash
-ycscraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
+ycscraper scrape-company --company-url https://www.workatastartup.com/companies/example-inc
 ```
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
@@ -131,8 +131,8 @@ This command will scrape data for the specified company and save it in the defau
 from ycombinator_scraper import Scraper
 
 scraper = Scraper()
-company_data = scraper.scrape_company_data("https://www.workatastartup.com/company/example-inc")
-print(company_data.model_dump_json(indent=2))
+company_data = scraper.scrape_company_data("https://www.workatastartup.com/companies/example-inc")
+print(company_data.model_dump_json(by_alias=True,indent=2))
 ```
 Pydantic is used under the hood so methods like `model_dump_json` are available for all the scraped data.
 
