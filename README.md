@@ -178,6 +178,7 @@ You can use Gitpod, a free online VS Code-like environment, to quickly start con
 Make sure to run tests before submitting a pull request.
 
 ```bash
+pip install -r requirements-test.txt
 pytest tests
 ```
 
