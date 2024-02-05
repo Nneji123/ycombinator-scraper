@@ -132,7 +132,8 @@ print(company_data.model_dump_json(indent=2))
 ```
 Pydantic is used under the hood so methods like `model_dump_json` are available for all the scraped data.
 
-> **You can view more examples here: [Examples](https://nneji123.github.io/ycombinator-scraper/usage/examples)**
+!!! note "More Examples"
+**You can view more examples here: [Examples](https://nneji123.github.io/ycombinator-scraper/usage/examples)**
 
 
 ## Contribution
