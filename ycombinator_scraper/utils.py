@@ -1,3 +1,4 @@
+import re
 import time
 from pathlib import Path
 from typing import Dict, List
@@ -6,7 +7,23 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from pydantic import BaseModel
 
+from ycombinator_scraper.exceptions import InvalidURLException
+
 OUTPUT_PATH = "output"
+
+
+def validate_job_url(input_url: str) -> None:
+    """Workatastartup.com url validator"""
+    url_pattern = re.compile(r"https://www.workatastartup.com/jobs")
+    if not url_pattern.match(input_url):
+        raise InvalidURLException(input_url)
+
+
+def validate_company_url(input_url: str) -> None:
+    """Workatastartup.com url validator"""
+    url_pattern = re.compile(r"https://www.workatastartup.com/companies")
+    if not url_pattern.match(input_url):
+        raise InvalidURLException(input_url)
 
 
 def get_output_filename(

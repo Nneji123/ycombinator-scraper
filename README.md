@@ -125,7 +125,7 @@ ycscraper scrape-company --company-url https://www.workatastartup.com/company/ex
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
 
-### With Library 
+### With Library
 
 ```python
 from ycombinator_scraper import Scraper
@@ -137,6 +137,93 @@ print(company_data.model_dump_json(indent=2))
 Pydantic is used under the hood so methods like `model_dump_json` are available for all the scraped data.
 
 > **You can view more examples here: [Examples](https://nneji123.github.io/ycombinator-scraper/usage/examples)**
+
+
+## Contribution
+
+We welcome contributions from the community! To contribute to this project, follow the steps below.
+
+### Setting Up Development Environment
+
+#### Gitpod
+
+You can use Gitpod, a free online VS Code-like environment, to quickly start contributing.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nneji123/ycombinator-scraper)
+
+#### Local Setup
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/nneji123/ycombinator-scraper.git
+    cd ycombinator-scraper
+    ```
+
+2. Create a virtual environment (optional but recommended):
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+
+3. Install dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Running Tests
+
+Make sure to run tests before submitting a pull request.
+
+```bash
+pytest tests
+```
+
+### Installing Documentation Requirements
+
+If you make changes to documentation, install the necessary dependencies:
+
+```bash
+pip install -r requirements-docs.txt
+mkdocs serve
+```
+
+### Setting Up Pre-Commit Hooks
+
+We use `pre-commit` to ensure code quality. Install it by running:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+Now, `pre-commit` will run automatically before each commit to check for linting and other issues.
+
+### Submitting a Pull Request
+
+1. Fork the repository and create a new branch for your contribution:
+
+    ```bash
+    git checkout -b feature-or-fix-branch
+    ```
+
+2. Make your changes and commit them:
+
+    ```bash
+    git add .
+    git commit -am "Your meaningful commit message"
+    ```
+
+3. Push the changes to your fork:
+
+    ```bash
+    git push origin feature-or-fix-branch
+    ```
+
+4. Open a pull request on GitHub. Provide a clear title and description of your changes.
+
 
 ## Documentation
 

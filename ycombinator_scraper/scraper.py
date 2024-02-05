@@ -15,6 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 from ycombinator_scraper.config import Settings
+from ycombinator_scraper.exceptions import InvalidURLException
 from ycombinator_scraper.models import CompanyData, FounderData, JobData
 from ycombinator_scraper.selectors import (
     COMPANY_DESCRIPTION_CLASS_ONE,
@@ -38,38 +39,40 @@ from ycombinator_scraper.selectors import (
     SUBMIT_BUTTON_XPATH,
     USERNAME_INPUT_XPATH,
 )
-from ycombinator_scraper.utils import strip_html_tags, timed_cache
+from ycombinator_scraper.utils import (
+    strip_html_tags,
+    timed_cache,
+    validate_company_url,
+    validate_job_url,
+)
 
 settings = Settings()
 
 
 class Scraper:
     def __init__(self):
-        self.driver = self.initialize_driver()
+        self.driver = None
         self.script_directory = Path(__file__).resolve().parent
 
     def initialize_driver(self) -> webdriver.Chrome:
         chrome_options = Options()
         chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--log-level=3")
+        chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+        chrome_options.add_experimental_option(
+            "prefs",
+            {
+                "profile.managed_default_content_settings.images": 2,
+                "profile.managed_default_content_settings.stylesheet": 2,
+                "profile.managed_default_content_settings.fonts": 2,
+            },
+        )
         logger.info("Running Scraper in headless mode!")
-
         if sys.platform == "linux":
             logger.info("Running Scraper in Linux environment!")
-            chrome_options.add_argument("--headless")
             chrome_options.add_argument("--disable-extensions")
             chrome_options.add_argument("--disable-dev-shm-usage")
             chrome_options.add_argument("--no-sandbox")
-            chrome_options.add_argument("--log-level=3")
-            chrome_options.add_argument("--blink-settings=imagesEnabled=false")
-            chrome_options.add_experimental_option(
-                "prefs",
-                {
-                    "profile.managed_default_content_settings.images": 2,
-                    "profile.managed_default_content_settings.stylesheet": 2,
-                    "profile.managed_default_content_settings.fonts": 2,
-                },
-            )
-
         chrome_service = ChromeService(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
@@ -82,6 +85,8 @@ class Scraper:
         password: str = settings.login_password,
     ) -> bool:
         try:
+            if self.driver is None:
+                self.driver = self.initialize_driver()
             # Open the WorkForStartups website
             self.driver.get("https://www.workatastartup.com/companies")
 
@@ -123,12 +128,26 @@ class Scraper:
         with open(cookies_path, "wb") as cookies_file:
             pickle.dump(self.driver.get_cookies(), cookies_file)
 
+    def validate_and_set_job_url(self, input_url: str) -> None:
+        try:
+            validate_job_url(input_url)
+        except InvalidURLException as e:
+            logger.error(f"Error: {e}")
+
+    def validate_and_set_company_url(self, input_url: str) -> None:
+        try:
+            validate_company_url(input_url)
+        except InvalidURLException as e:
+            logger.error(f"Error: {e}")
+
     @timed_cache(seconds=30)
     def scrape_job_data(self, job_url: str) -> JobData:
         try:
+            if self.driver is None:
+                self.driver = self.initialize_driver()
+            self.validate_and_set_job_url(job_url)
             job_data = JobData(job_url=job_url)
-            self.driver.get(job_data.job_url)
-
+            self.driver.get(job_url)
             WebDriverWait(self.driver, 20).until(
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
@@ -150,7 +169,11 @@ class Scraper:
                 salary_range_element = self.driver.find_element(
                     By.CLASS_NAME, SALARY_RANGE_CLASS
                 )
-                job_data.job_salary_range = salary_range_element.text
+                cleaned_string = salary_range_element.text.strip("")
+
+                # Remove the " • " symbol
+                cleaned_string = cleaned_string.replace("•", "").strip(" ")
+                job_data.job_salary_range = cleaned_string
             except Exception:
                 pass  # Will return None
 
@@ -164,17 +187,21 @@ class Scraper:
                 )
                 job_data.job_description = strip_html_tags(job_description_html)
 
+            logger.success(f"Successfully scraped job data for: {job_data.job_url}")
+
         except Exception as e:
             logger.error(f"Error scraping job data for: {job_data.job_url}. {e}")
-
-        logger.success(f"Successfully scraped job data for: {job_data.job_url}")
 
         return job_data
 
     @timed_cache(seconds=30)
     def scrape_company_data(self, company_url: str) -> CompanyData:
-        company_details = CompanyData(company_url=company_url)
+        company_details = CompanyData()
         try:
+            if self.driver is None:
+                self.driver = self.initialize_driver()
+            self.validate_and_set_company_url(company_url)
+            company_details = CompanyData(company_url=company_url)
             self.driver.get(company_url)
             company_link = self.driver.find_elements(By.CLASS_NAME, COMPANY_IMAGE_CLASS)
             company_details.company_image = company_link[0].get_attribute("src")
@@ -223,12 +250,14 @@ class Scraper:
             for job_url in company_details.company_job_links:
                 job_data = self.scrape_job_data(job_url)
                 job_data_list.append(job_data)
-            company_details.job_datas = job_data_list
+            company_details.job_data = job_data_list
+            logger.success(
+                f"Successfully scraped Data For Company: {company_details.company_name}"
+            )
+
         except Exception as e:
             logger.error(f"Error Scraping Company Data: {e}")
-        logger.success(
-            f"Successfully scraped Data For Company: {company_details.company_name}"
-        )
+
         return company_details
 
     @timed_cache(seconds=30)
@@ -236,7 +265,9 @@ class Scraper:
         founders_list = []
 
         try:
-            self.driver.get(company_url)
+            if self.driver is None:
+                self.initialize_driver()
+            self.validate_and_set_company_url(company_url)
             founders_names = self.driver.find_elements(
                 By.CLASS_NAME, FOUNDER_NAME_CLASS
             )
@@ -265,11 +296,15 @@ class Scraper:
                 )
                 founders_list.append(founder_data)
 
+            logger.success(
+                f"Successfully scraped founder's details from: {company_url}"
+            )
+
         except Exception as e:
             logger.error(f"Error scraping founders details: {e}")
 
-        logger.success(f"Successfully scraped founder's details from: {company_url}")
         return founders_list
 
     def shutdown_driver(self) -> None:
-        self.driver.quit()
+        if self.driver is not None:
+            self.driver.quit()

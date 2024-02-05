@@ -25,7 +25,7 @@ YCombinator-Scraper provides a web scraping tool for extracting data from [Worka
 [Proxycurl APIs](https://nubela.co/proxycurl/?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)
 
 
-![Logo with tagline (1)](https://github.com/Nneji123/ycombinator-scraper/assets/101701760/2f59fe31-f69d-41a8-ab7b-5b66fbe590ed)
+[<img src="https://github.com/Nneji123/ycombinator-scraper/assets/101701760/2f59fe31-f69d-41a8-ab7b-5b66fbe590ed">](https://nubela.co/proxycurl?utm_campaign=influencer_marketing&utm_source=github&utm_medium=social&utm_content=ifeanyi_nneji_ycombinator_scraper)
 
 Scrape public LinkedIn profile data at scale with Proxycurl APIs.
 
@@ -121,7 +121,7 @@ ycscraper scrape-company --company-url https://www.workatastartup.com/company/ex
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
 
-### With Library 
+### With Library
 
 ```python
 from ycombinator_scraper import Scraper
@@ -134,10 +134,97 @@ Pydantic is used under the hood so methods like `model_dump_json` are available 
 
 > **You can view more examples here: [Examples](https://nneji123.github.io/ycombinator-scraper/usage/examples)**
 
+
+## Contribution
+
+We welcome contributions from the community! To contribute to this project, follow the steps below.
+
+### Setting Up Development Environment
+
+#### Gitpod
+
+You can use Gitpod, a free online VS Code-like environment, to quickly start contributing.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nneji123/ycombinator-scraper)
+
+#### Local Setup
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/nneji123/ycombinator-scraper.git
+    cd ycombinator-scraper
+    ```
+
+2. Create a virtual environment (optional but recommended):
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+
+3. Install dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Running Tests
+
+Make sure to run tests before submitting a pull request.
+
+```bash
+pytest tests
+```
+
+### Installing Documentation Requirements
+
+If you make changes to documentation, install the necessary dependencies:
+
+```bash
+pip install -r requirements-docs.txt
+mkdocs serve
+```
+
+### Setting Up Pre-Commit Hooks
+
+We use `pre-commit` to ensure code quality. Install it by running:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+Now, `pre-commit` will run automatically before each commit to check for linting and other issues.
+
+### Submitting a Pull Request
+
+1. Fork the repository and create a new branch for your contribution:
+
+    ```bash
+    git checkout -b feature-or-fix-branch
+    ```
+
+2. Make your changes and commit them:
+
+    ```bash
+    git add .
+    git commit -am "Your meaningful commit message"
+    ```
+
+3. Push the changes to your fork:
+
+    ```bash
+    git push origin feature-or-fix-branch
+    ```
+
+4. Open a pull request on GitHub. Provide a clear title and description of your changes.
+
+
 ## Documentation
 
 The [documentation](https://nneji123.github.io/ycombinator-scraper/) is made with [Material for MkDocs](https://github.com/squidfunk/mkdocs-material) and is hosted by [GitHub Pages](https://docs.github.com/en/pages).
 
 ## License
 
-YCombinator-Scraper is distributed under the terms of the [MIT](license.md) license.
+YCombinator-Scraper is distributed under the terms of the [MIT](./license.md) license.

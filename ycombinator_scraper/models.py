@@ -36,7 +36,7 @@ class CompanyData(BaseSchema):
     company_social_links: List[str] = []
     company_job_links: List[str] = []
     company_founders: List[FounderData] = []
-    job_datas: List[JobData] = []
+    job_data: List[JobData] = []
 
 
 class ScrapedData(BaseSchema):

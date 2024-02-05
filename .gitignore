@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+test.py
 logs/
 requirements-ci-cd.txt
 # C extensions

@@ -34,7 +34,7 @@ scraper.save_cookies()
 
 ```python
 # Scrape job data
-job_data = scraper.scrape_job_data(job_url="https://www.workatastartup.com/job/1234")
+job_data = scraper.scrape_job_data(job_url="https://www.workatastartup.com/joba/1234")
 
 # Print job data
 print(job_data)
@@ -49,7 +49,7 @@ JobData(job_url='https://www.workatastartup.com/job/1234', job_title='Software E
 
 ```python
 # Scrape company data
-company_data = scraper.scrape_company_data(company_url="https://www.workatastartup.com/company/5678")
+company_data = scraper.scrape_company_data(company_url="https://www.workatastartup.com/companies/example-inc")
 
 # Print company data
 print(company_data)
@@ -71,7 +71,7 @@ CompanyData(
 
 ```python
 # Scrape founders data
-founders_data = scraper.scrape_founders_data(company_url="https://www.workatastartup.com/company/5678")
+founders_data = scraper.scrape_founders_data(company_url="https://www.workatastartup.com/companies/example-inc")
 
 # Print founders data
 for i, founder in enumerate(founders_data):

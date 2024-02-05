@@ -6,7 +6,7 @@ This section provides some examples of how to use the YCombinator-Scraper tool a
 ### Scrape Company Data
 
 ```bash
-ycscraper scrape-company --company-url https://www.workatastartup.com/company/example-inc
+ycscraper scrape-company --company-url https://www.workatastartup.com/companies/example-inc
 ```
 
 This command will scrape data for the specified company and save it in the default output format (JSON).
@@ -14,7 +14,7 @@ This command will scrape data for the specified company and save it in the defau
 ### Scrape Job Data
 
 ```bash
-ycscraper scrape-job --job-url https://www.workatastartup.com/job/example-job
+ycscraper scrape-job --job-url https://www.workatastartup.com/jobs/32131
 ```
 
 This command will scrape data for the specified job and save it in the default output format (JSON).
@@ -22,7 +22,7 @@ This command will scrape data for the specified job and save it in the default o
 ### Scrape Founder Data
 
 ```bash
-ycscraper scrape-founders --company-url https://www.workatastartup.com/company/example-inc
+ycscraper scrape-founders --company-url https://www.workatastartup.com/companies/example-inc
 ```
 
 This command will scrape founder data for the specified company and save it in the default output format (JSON).
@@ -59,7 +59,7 @@ print("Cookies loaded successfully.")
 
 ### Scrape Founder Data
 ```python
-company_url = "https://www.workatastartup.com/company/example"
+company_url = "https://www.workatastartup.com/companies/example"
 founders_data = scraper.scrape_founders_data(company_url)
 for founder_data in founders_data:
     print(f"Founder: {founder_data.founder_name}, LinkedIn: {founder_data.founder_linkedin_url}")
@@ -67,14 +67,14 @@ for founder_data in founders_data:
 
 ### Scrape Company Data
 ```python
-company_url = "https://www.workatastartup.com/company/example"
+company_url = "https://www.workatastartup.com/companies/example"
 company_data = scraper.scrape_company_data(company_url)
 print(f"Company: {company_data.company_name}, Description: {company_data.company_description}")
 ```
 
 ### Scrape Job Data
 ```python
-job_url = "https://www.workatastartup.com/job/example"
+job_url = "https://www.workatastartup.com/jobs/321321"
 job_data = scraper.scrape_job_data(job_url)
 print(f"Job Title: {job_data.job_title}, Salary Range: {job_data.job_salary_range}")
 ```

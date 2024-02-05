@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `YCombinator-Scraper` configuration file (`config.py`) allows you to customize various settings for the scraper. This file uses Pydantic for configuration validation and allows you to define settings such as login credentials, logs directory, headless mode, and the path to the ChromeDriver binary.
+The `YCombinator-Scraper` configuration file (`config.py`) allows you to customize various settings for the scraper. This file uses Pydantic for configuration validation and allows you to define settings such as login credentials.
 
 ## Configuration Options
 
@@ -13,10 +13,6 @@ Your Workatastartup username.
 ### 2. `login_password` (str)
 
 Your Workatastartup password.
-
-### 3. `logs_directory` (Path)
-
-The directory where log files will be stored. Default is "./logs".
 
 ## Example Configuration
 

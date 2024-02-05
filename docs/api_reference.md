@@ -2,18 +2,12 @@
 
 ## `Scraper` Class
 
-### `__init__(self, headless: bool = True) -> None`
-
-- **Parameters:**
-  - `headless` (bool): Whether to run the scraper in headless mode. Default is `True`.
+### `__init__(self) -> None`
 
 - **Description:**
   Initializes the `Scraper` class.
 
-### `initialize_driver(self, headless: bool) -> webdriver.Chrome`
-
-- **Parameters:**
-  - `headless` (bool): Whether to run the ChromeDriver in headless mode.
+### `initialize_driver(self) -> webdriver.Chrome`
 
 - **Returns:**
   - `webdriver.Chrome`: Initialized ChromeDriver instance.

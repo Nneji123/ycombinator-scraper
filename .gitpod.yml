@@ -5,4 +5,9 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: python -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+  - init: |
+          pyenv install 3.11.2
+          pyenv local 3.11.2
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
