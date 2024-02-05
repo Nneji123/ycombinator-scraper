@@ -6,6 +6,11 @@
 
 tasks:
   - init: |
+          cd .github 
+          cd scripts
+          ./run.sh
+          cd ..
+          cd ..
           pyenv install 3.11.2
           pyenv local 3.11.2
           pyenv global 3.11.2
