@@ -12,3 +12,5 @@ tasks:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+          pip install -r requirements-docs.txt
+          pip install -r requirements-test.txt
