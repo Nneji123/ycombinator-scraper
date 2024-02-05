@@ -18,7 +18,5 @@ COPY . /app
 # Install Python dependencies
 RUN pip install -r requirements.txt
 
-ARG HEADLESS_MODE=True
-
 # Run your CLI tool when the container starts
 CMD ["python", "-m", "ycombinator_scraper"]
