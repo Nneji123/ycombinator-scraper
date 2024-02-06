@@ -1,7 +1,9 @@
-from ycombinator_scraper.models import CompanyData, FounderData, JobData
+import pytest
+
+from ycombinator_scraper.models import CompanyData, FounderData, JobData, ScrapedData
 
 
-def test_successful_login(scraper, get_test_url):
+def test_successful_login(scraper):
     username = "test_user"
     password = "test_password"
     result = scraper.login(username, password)
@@ -9,8 +11,8 @@ def test_successful_login(scraper, get_test_url):
     scraper.shutdown_driver()
 
 
-def test_scrape_job_data(scraper, get_test_url):
-    job_url = get_test_url
+def test_scrape_job_data(scraper, get_test_job_url):
+    job_url = get_test_job_url
 
     job_data = scraper.scrape_job_data(job_url)
 
@@ -55,3 +57,21 @@ def test_scrape_founders_data(scraper, get_test_url):
         assert isinstance(founder.founder_linkedin_url, str)
 
     scraper.shutdown_driver()
+
+
+def test_scrape_company_urls(scraper):
+    target_companies = 5
+    company_urls = scraper.scrape_company_urls(target_companies)
+
+    assert isinstance(company_urls, list)
+    assert len(company_urls) == target_companies
+    for url in company_urls:
+        assert url.startswith("https://www.workatastartup.com/companies/")
+
+
+@pytest.mark.parametrize("no_of_companies", [1, 3, 5])
+def test_scrape_multiple_companies(scraper, no_of_companies):
+    scraped_data = scraper.scrape_multiple_companies(no_of_companies)
+
+    assert isinstance(scraped_data, ScrapedData)
+    assert len(scraped_data.scraped_data) == no_of_companies

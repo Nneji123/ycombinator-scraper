@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 test.py
 logs/
+output.json
+.vscode/
 requirements-ci-cd.txt
 # C extensions
 *.so

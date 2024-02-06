@@ -1,6 +1,6 @@
 import pytest
 
-from ycombinator_scraper.scraper import Scraper
+from ycombinator_scraper import Scraper
 
 
 @pytest.fixture
@@ -11,5 +11,11 @@ def scraper():
 
 @pytest.fixture
 def get_test_url():
-    url = "https://www.workatastartup.com/companies/vocode"
+    url = "https://www.workatastartup.com/companies/vocode/"
+    yield url
+
+
+@pytest.fixture
+def get_test_job_url():
+    url = "https://www.workatastartup.com/jobs/64444"
     yield url

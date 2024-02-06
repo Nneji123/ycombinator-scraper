@@ -1,5 +1,4 @@
 import re
-import time
 from pathlib import Path
 from typing import Dict, List
 
@@ -60,28 +59,3 @@ def generate_csv_from_pydantic_data(data: List[BaseModel], file_path: str) -> No
     data_dicts = [item.model_dump() for item in data]
     df = pd.DataFrame(data_dicts)
     df.to_csv(file_path, index=False)
-
-
-# TODO: Update Scraper to use functool lru_cache
-cache_store = {}
-
-
-def timed_cache(seconds: int):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            key = (func, args, frozenset(kwargs.items()))
-            current_time = time.time()
-            if (
-                key in cache_store
-                and current_time - cache_store[key]["timestamp"] < seconds
-            ):
-                return cache_store[key]["value"]
-
-            # If not in cache or expired, compute the result and update the cache
-            result = func(*args, **kwargs)
-            cache_store[key] = {"value": result, "timestamp": current_time}
-            return result
-
-        return wrapper
-
-    return decorator
