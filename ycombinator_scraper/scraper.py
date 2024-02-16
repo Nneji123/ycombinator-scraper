@@ -305,6 +305,7 @@ class Scraper:
             if self.driver is None:
                 self.driver = self._initialize_driver()
             self._validate_and_set_company_url(company_url)
+            self.driver.get(company_url)
             founders_names = self.driver.find_elements(
                 By.CLASS_NAME, FOUNDER_NAME_CLASS
             )
